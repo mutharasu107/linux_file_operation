@@ -1,0 +1,10 @@
+   10  wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2
+   20  lsusb
+   30  init 6
+   40  git status 
+   50  vim stm32f103c8.h.diff 
+   60  cd Documents/STM/arm_compiler/gcc-arm-none-eabi-10.3-2021.10/
+   70  openocd
+   80  ls
+   90  cd
+  100  cd Rectifier/
