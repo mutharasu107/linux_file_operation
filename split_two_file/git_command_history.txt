@@ -1,0 +1,100 @@
+   1  cd
+   2  ls
+   3  cd STM/arm_compiler~
+   4  mkdir STM/arm_compiler~
+   5  mkdir STM/arm_compiler
+   6  ls
+   7  mkdir STM
+   8  mkdir ~/Documents/STM/arm_compiler
+   9  cd ~/Documents/STM/arm_compiler
+   10  wget https://developer.arm.com/-/media/Files/downloads/gnu-rm/10.3-2021.10/gcc-arm-none-eabi-10.3-2021.10-x86_64-linux.tar.bz2
+   11  cd gcc-arm-none-eabi-10.3-2021.10/
+   12  ls bin/
+   13  cd bin/
+   14  ls
+   15  source ~/.bashrc
+   16  arm-none-eabi-gcc --version
+   17  sudo apt install st-stlink-udev-rules stlink-tools stlink-gui openocd
+   18  sudo apt-get install st-stlink-udev-rules stlink-tools stlink-gui openocd
+   19  sudo apt-get install stlink-tools stlink-gui openocd
+   20  lsusb
+   21  st-info --probe
+   22  cd ..
+   23  lsusb 
+   24  st-info 
+   25  st-info --probe
+   26  cd
+   27  init 0
+   28  top
+   29  init 0
+   30  init 6
+   31  cd git/
+   32  ls
+   33  cd Eagle_FCS/
+   34  ls
+   35  cd include/
+   36  ls
+   37  git diff
+   38  vim stm32f103c8.h 
+   39  git sta
+   40  git status 
+   41  git pull 
+   42  vim stm32f103c8.h 
+   43  git log 
+   44  vim stm32f103c8.h 
+   45  cd ..
+   46  ls
+   47  git diff
+   48  git diff > stm32f103c8.h.diff
+   49  ls
+   50  vim stm32f103c8.h.diff 
+   51  :Wq
+   52  ls
+   53  \
+   54  ls
+   55  cd Documents/
+   56  ls
+   57  cd STM/arm_compiler/gcc-arm-none-eabi-10.3-2021.10/
+   58  cd
+   59  ~/Documents/STM/arm_compiler/gcc-arm-none-eabi-10.3-2021.10$ arm-none-eabi-gcc --version
+   60  cd Documents/STM/arm_compiler/gcc-arm-none-eabi-10.3-2021.10/
+   61  sudo apt install st-stlink-udev stlink-tools stlink-gui openocd
+   62  sudo apt install st-stlink stlink-tools stlink-gui openocd
+   63  sudo apt install stlink-tools stlink-gui openocd
+   64  sudo apt install st-stlink-udev stlink-gui openocd
+   65  lsusb 
+   66  st-info --probe
+   67  st-flash write stm32f401ccux.elf 0x08000000
+   68  openocd -s openocd.cfg 
+   69  openocd -s openocd
+   70  openocd
+   71  ls
+   72  cd
+   73  cd Documents/STM/
+   74  ls
+   75  cd stm32f103c8b6/
+   76  cd
+   77  cd Documents/STM/stm32f103c8t6/
+   78  ls
+   79  cd led_blink_1s/
+   80  ls
+   81  openocd -s openocd.cfg 
+   82  vi main.c
+   83  make
+   84  arm-none-eabi-gdb stm32f103c8t6.elf 
+   85  sudo apt install libncurses5-dev 
+   86  arm-none-eabi-gdb stm32f103c8t6.elf 
+   87  sudo apt install libncurses5
+   88  arm-none-eabi-gdb stm32f103c8t6.elf 
+   89  init 0
+   90  cd
+   91  vi ~/.vimrc
+   92  ls
+   93  sudo add-apt-repository --yes ppa:kicad/kicad-7.0-releases
+   94  sudo apt update
+   95  sudo apt install --install-recommends kicad
+   96  ld
+   97  ls
+   98  cd Rectifier/
+   99  ls
+  100  cd Rectifier/

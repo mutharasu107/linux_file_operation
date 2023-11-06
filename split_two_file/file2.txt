@@ -1,0 +1,50 @@
+   51  :Wq
+   52  ls
+   53  \
+   54  ls
+   55  cd Documents/
+   56  ls
+   57  cd STM/arm_compiler/gcc-arm-none-eabi-10.3-2021.10/
+   58  cd
+   59  ~/Documents/STM/arm_compiler/gcc-arm-none-eabi-10.3-2021.10$ arm-none-eabi-gcc --version
+   60  cd Documents/STM/arm_compiler/gcc-arm-none-eabi-10.3-2021.10/
+   61  sudo apt install st-stlink-udev stlink-tools stlink-gui openocd
+   62  sudo apt install st-stlink stlink-tools stlink-gui openocd
+   63  sudo apt install stlink-tools stlink-gui openocd
+   64  sudo apt install st-stlink-udev stlink-gui openocd
+   65  lsusb 
+   66  st-info --probe
+   67  st-flash write stm32f401ccux.elf 0x08000000
+   68  openocd -s openocd.cfg 
+   69  openocd -s openocd
+   70  openocd
+   71  ls
+   72  cd
+   73  cd Documents/STM/
+   74  ls
+   75  cd stm32f103c8b6/
+   76  cd
+   77  cd Documents/STM/stm32f103c8t6/
+   78  ls
+   79  cd led_blink_1s/
+   80  ls
+   81  openocd -s openocd.cfg 
+   82  vi main.c
+   83  make
+   84  arm-none-eabi-gdb stm32f103c8t6.elf 
+   85  sudo apt install libncurses5-dev 
+   86  arm-none-eabi-gdb stm32f103c8t6.elf 
+   87  sudo apt install libncurses5
+   88  arm-none-eabi-gdb stm32f103c8t6.elf 
+   89  init 0
+   90  cd
+   91  vi ~/.vimrc
+   92  ls
+   93  sudo add-apt-repository --yes ppa:kicad/kicad-7.0-releases
+   94  sudo apt update
+   95  sudo apt install --install-recommends kicad
+   96  ld
+   97  ls
+   98  cd Rectifier/
+   99  ls
+  100  cd Rectifier/
