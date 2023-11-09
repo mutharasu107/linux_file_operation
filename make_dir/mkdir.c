@@ -30,5 +30,5 @@ int main(int argc, char *argv[])
 
 // close exit file
 close_exit:
-   close(-ret_val);
+   exit(-ret_val);
 }
