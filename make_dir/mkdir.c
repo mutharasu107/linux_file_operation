@@ -18,17 +18,16 @@ int main(int argc, char *argv[])
    int dir;
    int ret_val = EXIT_SUCCESS;
 
-// In my program argv[1] using this one user given directory name
+// convert string to interger
+   int per = atoi(argv[2]);
+
+// In my program argv[1] using this one user given directory name, argv[2] is permission for directory given user.
    // int mkdir(const char *pathname, mode_t mode);
-   dir = mkdir( argv[1], 0777 );
+   dir = mkdir( argv[1], per );
    if( dir == -1 )
    {
 	ret_val = errno;
 	perror("directory already exists");
-	goto close_exit;
+	exit(-ret_val);
    }
-
-// close exit file
-close_exit:
-   exit(-ret_val);
 }
