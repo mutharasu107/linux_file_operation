@@ -13,24 +13,19 @@
 #include <error.h>
 #include <errno.h>
 
-const char *path = "sam";
-
-int main()
+int main(int argc, char *argv[])
 {
    int dir;
    int ret_val = EXIT_SUCCESS;
 
 // First create one directory, In this system call giveing which directory i am delete mation this directory name(ex sam)
+// arg[1] is which directory delet that directory name
    // int rmdir(const char *pathname);
-   dir = rmdir( path );
+   dir = rmdir( argv[1] );
    if( dir == -1 )
    {
 	ret_val = errno;
 	perror("No such file or Directory");
-	goto close_exit;
+	exit(-ret_val);
    }
-
-// close exit file
-close_exit:
-   close(-ret_val);
 }

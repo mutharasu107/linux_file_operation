@@ -11,23 +11,19 @@
 #include <errno.h>
 #include <error.h>
 
-int main()
+int main(int argc, char *argv[])
 {
    int un_link;
-   const char *file = "git_command_history.txt";
    int ret_val = EXIT_SUCCESS;
 
 // first add any one text file in this directory(ex git_command_history.txt)
+// argv[1] delets a name from the filesystem
    // int unlink(const char *pathname);
-   un_link = unlink(file);
+   un_link = unlink(argv[1]);
    if( un_link == -1 )
    {
       ret_val = errno;
       perror("No such file or directory\n");
-      goto close_exit;
+      exit(-ret_val);
    }
-
-// close exit file
-close_exit:
-   close(-ret_val);
 }
