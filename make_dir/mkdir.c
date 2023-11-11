@@ -18,12 +18,9 @@ int main(int argc, char *argv[])
    int dir;
    int ret_val = EXIT_SUCCESS;
 
-// convert string to interger
-   int per = atoi(argv[2]);
-
 // In my program argv[1] using this one user given directory name, argv[2] is permission for directory given user.
    // int mkdir(const char *pathname, mode_t mode);
-   dir = mkdir( argv[1], per );
+   dir = mkdir( argv[1], 0775 );
    if( dir == -1 )
    {
 	ret_val = errno;
