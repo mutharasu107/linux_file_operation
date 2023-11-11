@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
    int dir;
    int ret_val = EXIT_SUCCESS;
 
-// In my program argv[1] using this one user given directory name, argv[2] is permission for directory given user.
+// In my program argv[1] using this one user given directory name.
    // int mkdir(const char *pathname, mode_t mode);
    dir = mkdir( argv[1], 0775 );
    if( dir == -1 )
