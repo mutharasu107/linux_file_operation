@@ -1,3 +1,11 @@
+/***************************************************************************************************************/
+/*   Author         : Mutharsu R                                                                               */
+/*   Date           : 14/11/2023                                                                               */
+/*   File name      : num_directory.c                                                                          */
+/*   Description    : Write a program to create 10 directors, 						       */
+/*                    one directory has to be created per second, then delete one by one (one per second).     */
+/***************************************************************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
