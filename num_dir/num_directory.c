@@ -17,16 +17,15 @@
 int main(int argc, char *argv[])
 {
    int ret_val = EXIT_SUCCESS;
-   
+   int mkdir_fd, rmdir_fd;
+
    for(int i=1; i<argc; i++)
    {
-      int fd[argc];
-      
       // creating number of new dir
       // int mkdir(const char *pathname, mode_t mode);
-      fd[argc] = mkdir(argv[i], 0775);
       sleep(1);
-      if( fd[argc] == -1 )
+      mkdir_fd = mkdir(argv[i], 0775);
+      if( mkdir_fd == -1 )
       {
 	 ret_val = errno;
  	 perror("Error already file or directory is there\n");
@@ -35,11 +34,10 @@ int main(int argc, char *argv[])
    	for(int rem=1; rem<argc; rem++)
 	{
 	   sleep(1);
-	   int arr[argc];
       	   // int rmdir(const char *pathname);
-      	   arr[argc] = rmdir(argv[rem]);
+      	   rmdir(argv[rem]);
 	}
-	 exit(-ret_val);
+	exit(-ret_val);
      }
      else
      {
@@ -50,11 +48,10 @@ int main(int argc, char *argv[])
    // remove before creating all directory in one by one.
    for(int rem=1; rem<argc; rem++)
    {
-      int arr[argc];
       // int rmdir(const char *pathname);
-      arr[argc] = rmdir(argv[rem]);
       sleep(1);
-      if( arr[argc] == -1 )
+      rmdir_fd = rmdir(argv[rem]);
+      if( rmdir_fd == -1 )
       {
 	 ret_val = errno;
 	 perror("Error removeing dir\n");
