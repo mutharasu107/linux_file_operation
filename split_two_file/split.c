@@ -12,9 +12,14 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <error.h>
-#include <stdio.h>
+#include <errno.h>
 #include <stdlib.h>
+#include <stdio.h>
 #define BUF 100000
+
+// In my prorgam argv[1] is textfile
+// In my program argv[2] is first text file name
+// In my program argv[3] is second text file name
 
 // main file
 int main(int argc, char *argv[])
@@ -25,6 +30,7 @@ int main(int argc, char *argv[])
      char buf1[BUF];
      int bytes;
      off_t set;
+     int ret_val = EXIT_SUCCESS;
 
 // If argv[1] that text file there in this directory means open the text file and that text file read only.
 // In my prorgam i am using first argv[1] text file name is git_command_history.txt.
@@ -32,8 +38,9 @@ int main(int argc, char *argv[])
      openfd = open( argv[1], O_RDONLY);
      if(openfd == -1)
      {
-          perror("open()");
-          exit(1);
+	  ret_val = errno;
+          perror("Error while i am opening that file");
+          goto close_exit;
      }
 
 // read the txt file content using read system call if a any problem in reading file that time close the before opening file and exit to the program. 
@@ -41,9 +48,9 @@ int main(int argc, char *argv[])
      readfd = read( openfd, buf, sizeof(buf));
      if(readfd == -1)
      {
-          perror("read()");
-          close(openfd);
-          exit(1);
+	  ret_val = errno;
+          perror("Error while i am reading first time");
+	  goto close_fd;
      }
 
 // create a first new file i am giveing name is file1.txt, It's given in argv[2].
@@ -51,19 +58,18 @@ int main(int argc, char *argv[])
      creatfd = creat(argv[2], S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH );
      if(creatfd == -1)
      {
-          close(openfd);
-          close(readfd);
-          exit(1);
+	  ret_val = errno;
+          perror("Error whule i create new file1");
+	  goto close_exit;
      }
 // create a second new file i am giveing name is file2.txt, It's given in argv[3].
      // int creat(const char *pathname, mode_t mode);
      creatfd1 = creat(argv[3], S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH );
      if(creatfd1 == -1)
      {
-          close(openfd);
-          close(readfd);
-          close(creatfd);
-          exit(1);
+	  ret_val = errno;
+          perror("Error while i create new file2");
+	  goto close_exit;
      }
 
 // if readfd file descriptor value is less thanor equal to zero means exqute the program
@@ -97,12 +103,9 @@ int main(int argc, char *argv[])
           writefd = write( creatfd, buf, bytes);
           if(writefd == -1)
           {
-               perror("write()");
-               close(openfd);
-               close(readfd);
-               close(creatfd);
-               close(creatfd1);
-               exit(1);
+	       ret_val = errno;
+               perror("Error while i am writeing in to create file1");
+	       goto close_fd;
           }
 
           // using lseek move the cursor in to how many bytes read and write befor and set to the cursor on next byte.
@@ -110,9 +113,9 @@ int main(int argc, char *argv[])
           set = lseek( openfd, bytes, SEEK_SET);
           if(set == -1)
           {
-                perror("lssek()");
-                close(openfd);
-                exit(1);
+	        ret_val = errno;
+                perror("Error while i set to cursor");
+	        goto close_fd;
           }
 
           // read the second half content and store in to the buf1[];
@@ -120,13 +123,9 @@ int main(int argc, char *argv[])
           readfd1 = read( openfd, buf1, BUF);
           if(readfd1  == -1)
           {
-               perror("read()");
-               close(openfd);
-               close(readfd);
-               close(creatfd);
-               close(creatfd1);
-               close(set);
-               exit(1);
+	       ret_val = errno;
+               perror("Error while i am read from openfd file");
+	       goto close_fd;
           }
 
           // write second half of content in to creafd1(file2.txt)
@@ -134,24 +133,16 @@ int main(int argc, char *argv[])
           writefd1 = write( creatfd1, buf1, readfd1);
           if(writefd1 == -1)
           {
-               perror("write()");
-               close(openfd);
-               close(readfd);
-               close(readfd1);
-               close(creatfd);
-               close(creatfd1);
-               close(set);
-               exit(1);
+	       ret_val = errno;
+               perror("Error while i am writeing in to create file2");
+	       goto close_fd;
           }
      }
-     // close filedescripter
+// close exit file
+close_exit:
+     exit(-ret_val);
+
+// cloae file descriptor
+close_fd:
      close(openfd);
-     close(readfd);
-     close(readfd1);
-     close(creatfd);
-     close(creatfd1);
-     close(writefd);
-     close(writefd1);
-     close(set);
-     exit(1);
 }
