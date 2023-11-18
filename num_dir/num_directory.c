@@ -21,20 +21,33 @@ int main(int argc, char *argv[])
    for(int i=1; i<argc; i++)
    {
       int fd[argc];
+      
+      // creating number of new dir
       // int mkdir(const char *pathname, mode_t mode);
       fd[argc] = mkdir(argv[i], 0775);
       sleep(1);
       if( fd[argc] == -1 )
       {
 	 ret_val = errno;
-	 perror("Error already directory is theren\n");
+ 	 perror("Error already file or directory is there\n");
+
+	 // if two folder create same name means now showing error that time before creating folder all so removed.
+   	for(int rem=1; rem<argc; rem++)
+	{
+	   sleep(1);
+	   int arr[argc];
+      	   // int rmdir(const char *pathname);
+      	   arr[argc] = rmdir(argv[rem]);
+	}
 	 exit(-ret_val);
-      }
-      else
-      {
+     }
+     else
+     {
 	 perror("Successfuly open new directory\n");
-      }
+     }
    }
+
+   // remove before creating all directory in one by one.
    for(int rem=1; rem<argc; rem++)
    {
       int arr[argc];
@@ -44,7 +57,7 @@ int main(int argc, char *argv[])
       if( arr[argc] == -1 )
       {
 	 ret_val = errno;
-	 perror("Error removeing folder\n");
+	 perror("Error removeing dir\n");
 	 exit(-ret_val);
       }
       else
@@ -53,4 +66,3 @@ int main(int argc, char *argv[])
       }
    }
 }
-
