@@ -14,8 +14,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <error.h>
+#include <errno.h>
 #define BUF 10000
 
+// In my program argv[1] is first textfile 
+// In my program argv[2] is second textfile
+// In my program argv[3] is create new file name
 // main file start
 int main(int argc, char *argv[])
 {
@@ -25,6 +29,7 @@ int main(int argc, char *argv[])
      char buf[BUF];
      char buf1[BUF];
      off_t lseekfd;
+     int return_value = EXIT_SUCCESS;
 
 // If argv[1] that text file there in this directory means open the text file and that text file read only.
 // In my prorgam i am using first argv[1] text file name is merge1.txt.
@@ -32,8 +37,9 @@ int main(int argc, char *argv[])
      openfd = open( argv[1], O_RDONLY );
      if(openfd == -1)
      {
-          perror("Error opening a first txt file");
-          exit(1);
+	  return_value = errno;
+      	  perror("Error opening a first txt file");
+          goto close_exit;
      }
 
 // read the first txt file content using read system call if a any problem in reading file that time close the before opening file and exit to the program. 
@@ -41,9 +47,9 @@ int main(int argc, char *argv[])
      readfd = read( openfd, buf, BUF);
      if(readfd == -1)
      {
+	  return_value = errno;
           perror("Error while I am reading first txt file");
-          close(openfd);
-          exit(2);
+	  goto close_fd;
      }
 
 // If argv[2] that text file there in this directory means open the text file and that text file read only.
@@ -52,10 +58,9 @@ int main(int argc, char *argv[])
      openfd1 = open( argv[2], O_RDONLY );
      if(openfd1 == -1)
      {
+	  return_value = errno;
           perror("Error opening a second txt file");
-          close(openfd);
-          close(readfd);
-          exit(3);
+	  goto close_fd1;
      }
      
 // read the second txt file content using read system call, if a any problem in reading file that time close the before opening file and exit to the program. 
@@ -64,12 +69,9 @@ int main(int argc, char *argv[])
      readfd1 = read( openfd1, buf1, BUF);
      if(readfd1 == -1)
      {
+	  return_value = errno;
           perror("Error while I am reading second txt file");
-          close(openfd);
-          close(openfd1);
-          close(readfd);
-          close(readfd1);
-          exit(4);
+	  goto close_fd1;
      }
 
 // create new file i am giveing name is merge2file, It's given in argv[3].
@@ -77,12 +79,9 @@ int main(int argc, char *argv[])
      creatfd = creat( argv[3], S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH);
      if(creatfd == -1)
      {
+	  return_value = errno;
           perror("Error while I am createing a new file ");
-          close(openfd);
-          close(openfd1);
-          close(readfd);
-          close(readfd1);
-          exit(5);
+	  goto close_exit;
      }
 
 // write first file content in merge2file
@@ -90,13 +89,9 @@ int main(int argc, char *argv[])
      writefd = write( creatfd, buf, readfd);
      if(writefd == -1)
      {
+	  return_value = errno;
           perror("Error while I am write first time");
-          close(openfd);
-          close(openfd1);
-          close(readfd);
-          close(readfd1);
-          close(creatfd);
-          exit(6);
+	  goto close_fd;
      }
 
 // lseek using cursor setting in end of the program in creatfd file
@@ -104,9 +99,9 @@ int main(int argc, char *argv[])
      lseekfd = lseek( creatfd, 0, SEEK_END);
      if(lseekfd == -1)
      {
+	  return_value = errno;
           perror("Error while I am set cursor");
-          close(creatfd);
-          exit(7);
+	  goto close_exit;
      }
 
 // write second file content in merge2file
@@ -114,30 +109,15 @@ int main(int argc, char *argv[])
      writefd1 = write( creatfd, buf1, readfd1);
      if(writefd1 == -1)
      {
+	  return_value = errno;
           perror("Error while I am write second time");
-          close(openfd);
-          close(openfd1);
-          close(readfd);
-          close(readfd1);
-          close(writefd);
-          exit(8);
+	  goto close_fd1;
      }
 
-// close all file descriptor
+close_fd:
      close(openfd);
+close_exit:
+     close(-return_value);
+close_fd1:
      close(openfd1);
-     close(readfd);
-     close(readfd1);
-     close(creatfd);
-     close(writefd);
-     close(writefd1);
-     exit(0);
 }
-
-/*
-     this program using totally three argument vector 3;
-      
-     first argv[1] is first txt file name
-     second argv[2] is second txt file name
-     thrid argv[3] merge file name
-*/
