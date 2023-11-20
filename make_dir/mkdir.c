@@ -2,29 +2,37 @@
 /*   Author         : Mutharsu R                                                                               */
 /*   Date           : 8/11/2023                                                                                */
 /*   File name      : mkdir.c                                                                                  */
-/*   Description    : create a new directory                                                                       */
+/*   Description    : create a new directory                                                                   */
 /***************************************************************************************************************/
-
 #include <sys/stat.h>
 #include <sys/types.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
 #include <error.h>
 #include <errno.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 int main(int argc, char *argv[])
 {
-   int dir;
+   int fd;
    int ret_val = EXIT_SUCCESS;
 
+   mode_t per = S_IRWXU | S_IRWXG | S_IROTH | S_IXOTH;
 // In my program argv[1] using this one user given directory name.
    // int mkdir(const char *pathname, mode_t mode);
-   dir = mkdir( argv[1], 0775 );
-   if( dir == -1 )
+   fd = mkdir( argv[1], per);
+   if(per != 0775)
    {
 	ret_val = errno;
-	perror("directory already exists");
+	perror("permission deniedi\n");
 	exit(-ret_val);
    }
+
+   else if( fd == -1 )
+   {
+	ret_val = errno;
+	perror("directory already exists\n");
+	exit(-ret_val);
+   }
+
+      printf("create new dir name : %s\n", argv[1]);
 }
