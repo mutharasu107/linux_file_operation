@@ -20,10 +20,10 @@ int main(int argc, char *argv[])
 // In my program argv[1] using this one user given directory name.
    // int mkdir(const char *pathname, mode_t mode);
    fd = mkdir( argv[1], per);
-   if(per != 0775)
+   if(per != 0772)	// 0775 is default permission
    {
 	ret_val = errno;
-	perror("permission deniedi\n");
+	printf("permission denied\n");
 	exit(-ret_val);
    }
 
