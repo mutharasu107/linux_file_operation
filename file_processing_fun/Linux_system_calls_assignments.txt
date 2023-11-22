@@ -1,0 +1,31 @@
+													              Linux Assignments 
+1.	File operation open(), read(), write(), close() system call.
+2.	Print Laptop Battery percentage using system call without using printf function.
+3.	Print Laptop brightness level using system call.
+4.	Reading Mouse file print in hexa decimal value right click and left click all so.
+5.	write a program to split a file into 2 half. (EXAMPLE - if file_a has 250 lines, create 2 files by name split_1 and split_2. Those files should have 125 lines each).
+6.	write a program to merge 2 files. (EXAMPLE - if there are 2 files one with 100 lines and another file with 150 lines, create a file file_merge and that should have first 100 lines from file_1 			 			and next 150 lines from file_2).
+7.	write a program to take the line numbers which are multiples of 10. (Example - source_file has 100 lines, you have to create a file file_10th and save line numbers 10, 20, 30, 40, ... 100).
+8.	Go through mkdir, unlink, chown, chmod, rmdir, umask related system calls and Write programs with it.
+9.	Write a program to create 10 directors, one directory has to be created per second, then delete one by one (one per second). 
+10.	Create the home directory template and copy the default config files into it. Default files are .bashrc and .vimrc in this case
+11.	write a program to delete the files and directories created in assignment 10
+12.	Write a program to provide required permissions to the files and directories created in assignment 10
+13.	write a program to change the umask value, and then create the files and directories mentioned in assignment 10
+14.	write a program to change the owner and group of the files and directories created in assignment 10.
+15	https://man7.org/linux/man-pages/man2/_exit.2.html Assignment: read and understand how this function works, use whenever there is a program exit requires
+16.	Assignment “File Processing Function”:Create a function that performs file operations on a single file. This function should:Open the file and read its contents.
+	Count the number of lines in the file.Count the number of words in the file.Close the file after processing.
+17.	Assignment : Recursive Directory Listing Write a C program that recursively lists all files and directories in a given directory. The program should display the hierarchical structure, including subdirectories and their contents.Requirements: Implement a recursive function for directory listing.Display file names and indicate whether each entry is a file or a directory.	
+18.	Assignment : File Permission Checker
+	Create a program that checks the permissions of a specified file and displays the permission information in a human-readable format.
+	Requirements: Use the stat system call to obtain file information.Display the owner, group, and other permissions.	Provide additional information such as file size and modification time.
+19.	Assignment : File Watcher
+	Build a program that monitors a specified directory for changes (e.g., file creations, deletions, modifications). Display real-time notifications whenever a change occurs.
+	Requirements:Use the inotify API for monitoring directory changes.Display meaningful notifications for each change.Implement a clean exit strategy for the program.
+20.	Assignment : Directory Size Calculator
+	Write a program that calculates the total size of a directory, including all its subdirectories and files.
+	Requirements: Implement a recursive function to traverse the directory tree. Display the total size in a human-readable format (e.g., kilobytes, megabytes).Handle errors gracefully and display informative messages.
+21.	Assignment : File Search Utility
+	Develop a command-line utility that searches for files containing a specified keyword within a given directory and its subdirectories.
+	Requirements:Implement a recursive file search function.Display the file paths where the keyword is found. Allow the user to specify additional search options.
