@@ -1,7 +1,7 @@
 
 /***************************************************************************************************************/
 /*   Author         : Mutharsu R                                                                               */
-/*   Date           : 21/11/2023                                                                               */
+/*   Date           : 23/11/2023                                                                               */
 /*   File name      : file_fun.c                                                                               */
 /*   Description    :  Create a function that performs file operations on a single file. This function should:
                        Open the file and read its contents.Count the number of lines in the file. 
@@ -39,9 +39,8 @@ int main(int argc, char *argv[])
       ret_val = errno;
       printf("Error read file\n");
       close(open_fd);
-      exit(-ret_val);
    }
-   printf("read total char there in file : %ld\n", read_fd);
+   printf("Read total character count there in file : %ld\n", read_fd);
    // if readfd file descriptor value is less thanor equal to zero means exqute the program
      if(read_fd >= 0)
      {
