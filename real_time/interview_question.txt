@@ -1,0 +1,3585 @@
+Interrupt - 
+
+# Write the interrupt handler in linux?
+# Why we have to use spinlocks in interrupt handler?
+
+http://c-faq.com/
+
+
+
+______________________________________________________________________________________________________
+
+HARMAN 
+
+Interview questions:
+
+# Explain I2C protocol.
+# What is bus arbitration ?
+# Different modes in ARM, how many and what are those ? (user , fiq , irq , abort , system, supervior, undefind) *
+# How many exception level are present in ARMv8. ?
+# What is priority inversion and how to resolve ? * 
+# Identify nos. 1s and 0s in 32-bit word.  ************
+# Write a Fibonacci series program in c. *
+# what is virtual memory and why its required ? **********
+# what is volatile and when will you use ? ***********
+# how to access any hardware address in c ? ----> unsigned *char dev_reg = (unsigned char *)0x80000000; 
+                                                  #define DEV_REG (*(unsigned char *)0x80000000)
+												  
+# what are locking techniques available ?  - shemaphores / mutex / spinlock
+# what are the IPC mechanisms available in RTOS.  *******
+# write a program to calculate the size of any data type without using sizeof(). * 
+# what happens in recursive calls.
+# what is the limitation of the nested calls. 
+# Explain the driver in detail from initialization to the end .
+# what is blocking and non-blocking system calls and how to implement .
+# what is system calls and how it works ?
+# Difference between system mode and user mode.
+# how message queues and fifo’s works ?
+# different sections generated in executable file.
+# what is elf format ?
+# difference between mutex and semaphore ?  *
+# what is packed and unpacked structure ?  *
+# Write the program to implement the Queue using linked list ? Post data to the queue and retrieve ?
+# Write the I2C driver ?  
+# What are the issues faced during development of the linux driver for i2c ?
+# Write the interrupt handler in linux ?
+# Why we have to use spinlocks in interrupt handler ? 
+# Write a C programme to count the number of bits set in a integer ?
+ 
+ 
+Interview - 2
+ 
+1) difference between spi and i2c.
+2) what is a priority inversion and priority inheritance.
+3) what is the difference between polling and interrupt mechanism.
+4) types of locking mechanism and tell me real time senario.
+5) how many total interrupts in arm.
+6) how many external interrupts in arm.
+7) what is an i2c.
+8) what is a clock stretching and tell me about real time senario.
+9) if any driver waits for long time to get the data or it srtructs at data getting what is the scenario to reset.
+10) what is a heap and heap correction.
+11) struct {int *p; char a} sizeof struct.
+12) tell me about packed sturct and unpacked sturuct .
+13) tell me about global variable and its significance .
+14) tell me about static variable and its significance .
+15) tell me about arm modes and its real time scenario of each and every mode.
+16) i2c frame format and what is a repetative start condition.
+17) what is a deadlock and how to overcome this dead lock.
+18) what is a stack 
+19) what is AMBA
+20) difference between AXI and AHB
+21) tell me the real time scenario of linked list ?
+22) if any processor hangs somewhere, what is the scenario to reset
+
+Interview - 3
+
+1.	What happens when slave miss the start condition, how do you handle it?
+2.	In what scenarios will you choose I2C and SPI
+3.	Why the Master will issue repeated start condition
+4.	Write the key board driver flow for I2C protocol
+5.	Can slaves communicate each other 
+6.	What diff b/w SPI and I2C
+7.	How do you debug the I2C signals?
+8.	What is meant by Clock stretching?
+9.	How the master will synchronize the clock stretching, how do you handle it?
+10.	I2C signal flow diagram
+11.	How many slaves can be allocated?
+12.	Write I2C driver.
+1.	What happens when slave miss the start condition, how do you handle it?
+2.	In what scenarios will you choose I2C and SPI
+3.	Why the Master will issue repeated start condition
+1)  difference between spi and i2c
+#   Write the I2C driver ?  
+#   Explain I2C protocol. *
+#   What is bus arbitration ? *
+13.	Explain about SPI protocol
+14.	How does multiple slaves can be connected with one chip selected – GPIO
+15.	Will you control the slave using only MOSI, MISO and Clk
+16.	Diff b/w the Mutex locks, Spin locks and Semaphore
+17.	Have you encountered with any kernel panic?
+18.	Single linked list program
+19.	Binary search
+20.	How do you measure flow control of UART
+21.	Will you configure the SPI on GPIO lines, write a function to configure SPI and GPIO
+22.	Volatile, Storage classes
+23.	Write a program to Reverse the bits positions
+24.	Priority inversion and priority in-heritance
+25.	Why do you use Spin Locks in ISR routine?
+26.	What happens when we use Mutex locks?
+
+    https://mortoray.com/2019/02/20/how-does-a-mutex-work-what-does-it-cost/
+	https://www.geeksforgeeks.org/mutex-lock-for-linux-thread-synchronization/
+
+27.	Write UART Driver flow
+ 
+
+C- Questions
+ 
+ 
+#if 0
+// Write a C program to swap even and odd bits in given number
+#include <stdio.h>
+
+int swapp_even_odd(int);
+
+int main(void)
+{
+    unsigned int num;
+    printf("Enter the Number to swap\n");
+    scanf("%d", &num);
+    printf("Resultant number:%d\n", swapp_even_odd(num));
+}
+
+int swapp_even_odd(int num){
+    unsigned int even_num, odd_num;
+    even_num = num & 0xAAAAAAAA; // Extracting only even bits
+    odd_num = num & 0x55555555; // Extracting only odd bits
+    
+    even_num >>= 1; // Right shifting all even numbers
+    odd_num <<=1; // left shifting all odd numbers
+    
+    return (even_num | odd_num);
+}
+
+#endif
+
+#if 0
+// Fibonacci series recursive function
+
+#include <stdio.h>
+
+int fib(int);
+
+int main(void)
+{
+    int i,n;
+    printf("Enter the elements\n");
+    scanf("%d", &n);
+    for(i=0; i<n; i++)
+        printf("%d\t", fib(i));
+    printf("\n");
+    return 0;
+}
+
+int fib(int a)
+{
+    if(a == 1 | a == 0)
+        return 1;
+    return (fib(a-1) + fib(a-2));
+}
+
+#endif
+
+
+#if 0
+// Programs on without using main function and without using MACRO's
+#include <stdio.h> 
+#include <stdlib.h> 
+  
+// entry point function 
+int nomain();  
+  
+void _start(){ 
+  
+    // calling entry point 
+    nomain();  
+    exit(0); 
+} 
+  
+int nomain() 
+{ 
+    puts("Geeksforgeeks"); 
+    return 0; 
+} 
+
+#endif
+
+#if 0
+// Program on swap a nibble bits
+
+#include <stdio.h>
+
+int main(void)
+{
+    unsigned int val, res, swap;
+    printf("Enter the data to swap nibble\n");
+    scanf("%d", &swap);    
+    res = ((swap & 0x0F) << 4 | (swap & 0xF0) >> 4);
+    printf("Reverse Number is:%u\n", res);
+    return 0;
+}
+
+#endif
+
+#if 0
+
+#include <stdio.h>
+
+unsigned int reverseBits(unsigned int num) 
+{ 
+    unsigned int  NO_OF_BITS = sizeof(num) * 8; 
+    unsigned int reverse_num = 0; 
+    int i; 
+    for (i = 0; i < NO_OF_BITS; i++) 
+    { 
+        if((num & (1 << i))) 
+           reverse_num |= 1 << ((NO_OF_BITS - 1) - i);   
+   } 
+    return reverse_num; 
+} 
+
+int main() 
+{ 
+    unsigned int x = 0x00000004;  
+    printf("0x%x\n", reverseBits(x)); 
+    return 0;
+}
+
+#endif
+
+#if 0
+// Program to find whether number is powers of 2 or not
+
+#include<stdio.h> 
+#include<stdbool.h> 
+  
+/* Function to check if x is power of 2*/
+bool isPowerOfTwo(int n) 
+{ 
+  if (n == 0) 
+    return 0; 
+  while (n != 1) 
+  { 
+      if (n%2 != 0) 
+         return 0; 
+      n = n/2; 
+  } 
+  return 1; 
+} 
+  
+/*Driver program to test above function*/
+int main() 
+{ 
+  isPowerOfTwo(31)? printf("Yes\n"): printf("No\n"); 
+  isPowerOfTwo(64)? printf("Yes\n"): printf("No\n"); 
+  return 0; 
+} 
+
+#endif
+
+/*
+All power of two numbers have only one bit set. So count the no. of set bits and if you get 1 then number is a power of 2.
+*/
+
+#if 0
+// Sum of two bits can be obtained by performing XOR (^) of the two bits. Carry bit can be obtained by performing AND (&) of two bits, 
+
+#include <stdio.h>
+
+// C Program to add two numbers 
+// without using arithmetic operator 
+// Adding two numbers without using arithmentic operators
+
+int Add(int x, int y) 
+{ 
+    // Iterate till there is no carry   
+    while (y != 0) 
+    { 
+        // carry now contains common  
+        //set bits of x and y 
+        int carry = x & y;   
+        printf("Carry:%d\n", carry);
+  
+        // Sum of bits of x and y where at  
+        //least one of the bits is not set 
+        x = x ^ y;  
+  
+        // Carry is shifted by one so that adding 
+        // it to x gives the required sum 
+        y = carry << 1; 
+    } 
+    return x; 
+} 
+  
+int main() 
+{ 
+    printf("%d\n", Add(15, 32)); 
+    return 0; 
+} 
+
+#endif
+
+#if 0
+
+//Find the Number Occurring Odd Number of Times
+
+/* Solution : The Best Solution is to do bitwise XOR of all the elements. XOR of all elements gives us odd occurring element. Please note that XOR of two elements is 0 if both elements are same and XOR of a number x with 0 is x.
+
+*/
+
+#include <stdio.h>
+int odd_occuring_find(int *ptr, int size_arr);
+
+int main(void)
+{
+    int arr[] = {2, 3, 5, 4, 5, 2, 4, 3, 5, 2, 4, 4, 2};
+    int size_arr = sizeof(arr)/sizeof(arr[0]);
+    printf("Odd Occuring Number is:%d\n", odd_occuring_find(arr, size_arr));
+    
+}
+
+int odd_occuring_find(int *ptr, int size_arr)
+{
+    int res=0;
+    for(int i=0; i<size_arr; i++)
+        res = res ^ ptr[i];
+    return res;    
+}
+
+#endif
+
+
+#if 0
+
+/*
+
+Count number of bits to be flipped to convert A into B. 
+
+Given two numbers ‘a’ and b’. Write a program to count number of bits needed to be flipped to convert ‘a’ to ‘b’.
+
+Example :
+
+Input : a = 10, b = 20
+Output : 4
+Binary representation of a is 00001010
+Binary representation of b is 00010100
+We need to flip highlighted four bits in a
+to make it b.
+
+Input : a = 7, b = 10
+Output : 3
+Binary representation of a is 00000111
+Binary representation of b is 00001010
+We need to flip highlighted three bits in a
+to make it b.
+
+
+*/
+#include <stdio.h> 
+  
+// Function that count set bits 
+int countSetBits(int n) 
+{ 
+    int count = 0; 
+    while (n) 
+    { 
+        count += n & 1; 
+        n >>= 1; 
+    } 
+    return count; 
+} 
+  
+// Function that return count of 
+// flipped number 
+int FlippedCount(int a, int b) 
+{ 
+    // Return count of set bits in 
+    // a XOR b 
+    return countSetBits(a^b); 
+} 
+  
+// Driver code 
+int main() 
+{ 
+    int a = 10; 
+    int b = 20; 
+    printf("%d\n", FlippedCount(a, b));
+    return 0; 
+} 
+
+#endif
+
+#if 0
+
+// Find Greatest common diviser for two numbers
+#include <stdio.h>
+int GCD(int, int);
+
+int main(void)
+{
+    int  a, b;
+    printf("Enter the two Numbers\n");
+    scanf("%d %d", &a, &b);
+    printf("The GCD of two Numbers is:%d\n", GCD(a,b));
+    return 0;
+}
+
+int GCD(int a, int b)
+{
+    if(b==0)
+    return a;
+    GCD(b, a%b);
+}
+
+#endif
+
+#if 0
+
+#include <stdio.h>
+void foo(int a)
+{
+    static int var;
+    printf("%d\t", var);
+    var=a;
+}
+
+int main(void)
+{
+    foo(1);
+    foo(2);
+    foo(3);
+    printf("\n");
+    return 0;
+}
+#endif
+
+#if 0
+//How to modify a const variable in C?
+#include<stdio.h> 
+#include<stdlib.h> 
+int main() 
+{ 
+    const int var = 10; 
+    int *ptr = &var; 
+    *ptr = 12; 
+    printf("var = %d\n", var); 
+    return 0; 
+} 
+
+#endif
+
+#if 0
+
+// Check whether product of ‘n’ numbers is even or odd
+
+/*
+    logic:
+           1. Product of two even numbers is is even.
+           2. Product of two odd numbers is odd.
+           3. Product of one even and one odd number is even.
+    logic for code:
+           Check any even numbers is present in the given series of array, if present then product of all numbers is even otherwise odd.
+*/
+
+#include <stdio.h>
+
+int product_array(int *ptr, size_t size);
+
+int main(void)
+{
+        int arr[4]={1,3,5,8};
+        int size = sizeof(arr)/sizeof(arr[0]);
+        if(product_array(arr,size))
+            printf("The Product of all numbers is Even\n");
+        else 
+            printf("The Product of all numbers is odd\n");
+}
+
+int product_array(int *ptr, size_t size)
+{
+    int i;
+    printf("%d\n", size);
+    for(i=0; i<size; i++)
+    {
+        if((ptr[i]&1) == 0)
+            return 1;
+        else
+            return 0;
+    }
+}
+
+#endif
+
+#if 0
+// Program for Sum the digits of a given number
+
+#include <stdio.h>
+
+int sum_of_numbers(int num);
+
+int main(void)
+{
+    int num = 12345;
+    printf("The sum of Numbers is:%d\n", sum_of_numbers(num));
+    return 0;
+}
+
+int sum_of_numbers(int num)
+{
+    int rem, sum=0;
+    while(num)
+    {
+        rem = num%10;
+        sum = sum + rem;
+        num = num/10;
+    }
+    return sum;
+}
+// single line solution : for (sum = 0; n > 0; sum += n % 10, n /= 10);
+#endif
+
+
+
+
+Sasken:
+
+
+1)when we will use the macro and inline and clear example of these two 
+2)diff between the char *ptr="string" and char buf[10]="string"
+3)write a programme to check string is palindrome or not 
+4)what is volatile variable from the compiler level optimisation and assembly code level
+5)disadvantages of strcpy and strncpy and advantages of strlcpy
+6)write a programme for linked lists 
+7)memory layout for the c 
+8)write a programme for the flip a particular bit in variable 
+9)what is structure padding and why it is needed in compiler level and with respect to the system level what happening in the system level
+kernel: -
+1)how to allocate memory in the isr and is it preferable or not 
+2)if i want to allocate more then 4mb of memory which api i have to use 
+3)what are the ways to allocate memory in linux kernel 
+4)if i have to give some touch screen positions then how we have to give to user level applications 
+5)difference between static and dynamic modules and when these are used and when we have to give and tell me the scenario
+6)diff between the module_init and subsys_init and diff init levels in linux kernel
+
+NVIDIA:
+
+1)write a c programme for the extract the bits from the two positions.
+2)swap the 1to nth ,2 to n-1th 3 to n-2 of link list and so on.
+3)allocate 576 Bytes of memory with 16 Byte aligned memory
+4)clear the particular bit in given number
+5)what is volatile keyword
+6)it it possible to make the optmisations without using volatile keyword
+7)what is structure padding and why?
+8)delete the node of linked list
+9)write a c programme to count number of set bits in given number 
+
+int count = 0;
+X =10;
+While(X!=0)
+{
+x = x & (x-1);
+count ++;
+}
+
+
+
+1-2-3-4-5-6-7
+8-9-10
+
+
+
+
+LINUX INTERVIEW QUESTIONS:
+
+1.	What are the Linux security modules and why do we need it in Linux?
+Linux security module is a framework which allow for security extensions to be plugged in to the kernel, has been used to implement mandatory access control in Linux 
+We have different security modules in linux Selinux AppArmor Smack  (Label based MAC) Tomoyo (Path based MAC) 
+2.	Suppose we have some process running in the user space, we can get its memory informations some interfaces of proc filesystem. Is there any other ways to get process memory informations apart from proc interfaces? 
+3.	We can get the memory informations of any particular process running in linux kernel using memory descriptor of that process 
+mm_struct (memory descriptor) will be a part of process task_structure(process descriptor). It will have all memory informations with respect to that particular process 
+3. How user space programs communicates with kernel space? How static and dynamic linking with libc library happens while compiling the normal C program?
+4. what is interrupt service routine(ISR)? Name some of the constaints needs to be considered while writing the interrupt handlers?
+An ISR (also called an interrupt handler) is a software process invoked by an interrupt request from a hardware device. It handles the request and sends it to the CPU, interrupting the active process. When the ISR is complete, the process is resumed.
+We need to consider below constaints while writing the ISR
+1. Short CPU hold time
+2. It should not sleep 
+3. We should use proper locking mechanism inside interrupt handler
+5. Bottom half mechanisms in linux? How prioriry handling mechanism has incorporated with those mechanisms
+We have different mechanisms for implementing the bottom half mechanisms in linux
+a. Softirqs
+b. Tasklets
+c. Workqueues
+Different softirqs in priority order
+ 
+enum
+{
+        HI_SOFTIRQ=0,    /* High Priority */
+        TIMER_SOFTIRQ,
+        NET_TX_SOFTIRQ,
+        NET_RX_SOFTIRQ,
+        BLOCK_SOFTIRQ,
+        BLOCK_IOPOLL_SOFTIRQ,
+        TASKLET_SOFTIRQ,
+        SCHED_SOFTIRQ,
+        HRTIMER_SOFTIRQ,
+        RCU_SOFTIRQ,    /* Preferable RCU should always be the last softirq */
+ 
+        NR_SOFTIRQS
+};
+ 
+Tasklets are a bottom-half mechanism built on top of softirqs i.e. tasklets are represented by two softirqs: HI_SOFTIRQ and TASKLET_SOFTIRQ. Tasklets are actually run from a softirq. The only real difference in these types is that the HI_SOFTIRQ based tasklets run prior to the TASKLET_SOFTIRQ tasklets. So, tasklet_schedule() basically calls raise_softirq(TASKLET_SOFTIRQ)
+ 
+ 
+6. User space memory mapping
+ 
+ 
+ 
+7. function prologue and epilogue
+Function prologue typically does the following actions if the architecture has a base pointer (also known as frame pointer) and a stack pointer:
+	Pushes current base pointer onto the stack, so it can be restored later.
+	Assigns the value of stack pointer (which is pointed to the saved base pointer) to base pointer so that a new stack frame will be created on top of the old stack frame.
+	Moves the stack pointer further by decreasing or increasing its value, depending on whether the stack grows down or up. On x86, the stack pointer is decreased to make room for the function's local variables.
+Function epilogue reverses the actions of the function prologue and returns control to the calling function. It typically does the following actions (this procedure may differ from one architecture to another):
+	Drop the stack pointer to the current base pointer, so room reserved in the prologue for local variables is freed.
+	Pops the base pointer off the stack, so it is restored to its value before the prologue.
+	Returns to the calling function, by popping the previous frame's program counter off the stack and jumping to it.
+ 
+Difference between General Purpose OS(GPOS) and Real Time Operating Systems(RTOS)?
+Volatile keyword in C
+Can we use const with volatile in C?
+Top Half and Bottom Half Mechanisms?
+What are the differences between semaphore and mutex?
+Can we use mutexes inside the interrupt handler?
+Multithreading debugging using gdb.
+Static code analysis tools and tools for memory leak.
+What are the synchronization mechanisms in linux?
+Message passing techniques in linux.
+Multiprocessing and multithreading.
+1. Set the bit in memory location" for example if at address 0xffeh2f the 21st bit is 0 then set the 21st bit
+ 
+ 
+3. Difference between process and thread?
+ 
+Process is an executable entity in linux.A process has a virtual address space, executable code, open handles to system objects, a security context, a unique process identifier, environment variables, a priority class, minimum and maximum working set sizes, and at least one thread of execution. Each process is started with a single thread, often called the primary thread, but can create additional threads from any of its threads.
+ 
+Thread is a lightweight process (entity within a process) that can be scheduled for execution. All threads of a process share its virtual address space and system resources. In addition, each thread maintains exception handlers, a scheduling priority, thread local storage, a unique thread identifier, and a set of structures the system will use to save the thread context until it is scheduled. The thread context includes the thread's set of machine registers, the kernel stack, a thread environment block, and a user stack in the address space of the thread's process
+ 
+ 
+5. What is Spinlock and Tasklet in Kernel programming
+ 
+Spinlock is a synchronization premitive.spinlock is a lock which causes a thread trying to acquire it to simply wait in a loop ("spin") while repeatedly checking if the lock is available. Since the thread remains active but is not performing a useful task, the use of such a lock is a kind of busy waiting. Once acquired, spinlocks will usually be held until they are explicitly released, although in some implementations they may be automatically released if the thread being waited on (that which holds the lock) blocks, or "goes to sleep" 
+ 
+whereas Tasklet is a one of the mechanism for implementing the bottom half interrupt handling(deffering mechanism)
+ 
+Tasklets are a deferral scheme that you can schedule for a registered function to run later. The top half (the interrupt handler) performs a small amount of work, and then schedules the tasklet to execute later at the bottom half. Tasklets are represented by the tasklet_struct structure , which includes the necessary data to manage and maintain the tasklet 
+ 
+ 
+6. Interrupt handling, top half and bottom half?
+ 
+Interrupt is a hardware signal which interrupts the normal execution flow of the processor, There will be a atleast one interrupt handler registered with each interrupts in linux. Whenever process recieves the interrupt from a particular source, it will pause the execution of currently running process and excecutes the interrupt handler registered with that particular interrupt.
+ 
+In linux, interrupt handling process is divided into two halves 
+Top half  and bottom half
+ 
+Top half is meant for critical tasks and bottom half is meant for non critical tasks . In the typical scenario, the top half saves device data to a device-specific buffer, schedules its bottom half, and exits: this is very fast. The bottom half then performs whatever other work is required, such as awakening processes, starting up another I/O operation, and so on. This setup permits the top half to service a new interrupt while the bottom half is still working.
+ 
+The Linux kernel has two different mechanisms that may be used to implement bottom-half processing
+Tasklets and Workqueues
+ 
+ 
+7.What if kernel memory stack gets overflow?
+The Linux kernel stack has a fixed size. There is no mechanism to prevent the kernel from overflowing the stack.
+An overflow in kernel stack is a common bug in the Linux operating system. These bugs are difficult to detect because they are created as a side effect of the code and not as an inherent mistake in the algorithm implementation. 
+ 
+ 
+8. Kernel Synchronization
+In a shared memory environment, developer must ensure that shared resources are protected from concurrent process. The kernel is no exception. Shared resources require protection from concurrent access because if multiple threads of execution access and manipulate the data at the same time, the threads may overwrite each other's changes or access data while it is in an inconsistent state. Before going through the kernel synchronization premitives, we must have a knowledge on what is critical section in linux kernel? 
+ 
+Followings are the different synchronization mechanism provided by linux kernel
+1. Atomic operations
+2. Spinlocks (reader / writer spinlocks)
+3. Mutex
+4. Semaphores (reader /writer semaphores) 
+5. Completions
+ 
+ 
+9. Device tree in linux kernel?
+ 
+The core reason for the existence of Device Tree in Linux is to provide a way to describe non-discoverable hardware. This information was previously hard coded in source code. 
+Device Tree data can be represented in several different formats. It is derived from the device tree format used by Open Firmware to encapsulate platform information. The device tree data is typically created and maintained in a human readable format in .dts source files and .dtsi source include files.
+The device tree source is compiled into a binary format contained in a .dtb blob file. The format of the data in the .dtb blob file is commonly referred to as a Flattened Device Tree (FDT). The Linux operating system uses the device tree data to find and register the devices in the system.
+ 
+The Flattened Device Tree (FDT) is a data structure. Nothing more. 
+It describes a machine hardware configuration. It is derived from the device tree format used by Open Firmware. The format is expressive and able to describe most board design aspects including: 
+·     the number and type of CPUs 
+·     base addresses and size of RAM 
+·     busses and bridges 
+·     peripheral device connections 
+·     interrupt controllers and IRQ line connections 
+·     pin multiplexing
+#include "pxa910.dtsi"
+/ {
+    compatible = "mrvl,pxa910-dkb", "mrvl,pxa910";
+    chosen {
+        bootargs = "<boot args here>";
+    };
+    memory {
+        reg = <0x00000000 0x10000000>;
+    };
+    soc {
+        apb@d4000000 {         
+ 
+            uart1: uart@d4017000 {
+            status = "okay";
+            };
+            twsi1: i2c@d4011000 {
+                #address-cells = <1>
+                #size-cells = <0>
+                status = "okay";
+                pmic: 88pm860x@34 {
+                    compatible = "marvell,88pm860x";
+                    reg = <0x34>;
+                    interrupts = <4>;
+                    interrupt-parent = <&intc>;
+                    interrupt-controller;
+                    #interrupt-cells = <1>;
+                                                                     }
+                                                                   }
+               }
+ 
+10. handling OOPS and Kernel_panic messages
+http://opensourceforu.com/2011/01/understanding-a-kernel-oops/
+https://sanjeevsharmaengg.wordpress.com/2014/06/23/debugging-analysis-of-kernel-panics-and-kernel-oopses-using-system-map/
+ 
+ 
+1.	WAP to swap two integer numbers without using third variable.
+X = x ^ y
+y = x ^ y
+x = x ^ y
+ 
+ 
+2.	WAP to change Uppercase letters to Lowercase letter and viceversa in a given string.
+uppercase to lowercase
+for(i=0;i<=strlen(str);i++)
+       {
+            if(str[i]>=65 && str[i]<=92)
+            {
+                str[i]=str[i]+32;
+            }
+      }
+ASCII value of 'A' is 65 while 'a' is 97. Difference between them is 97 – 65 = 32
+So if we will add 32 in the ASCII value of 'A' then it will be 'a' and if will we subtract 32 in ASCII value of 'a' it will be 'A'. It is true for all alphabets
+or we can use toupper and tolower library functions
+ 
+3.	WAP to check whether a number is divisible by 4 without using %
+ 
+4.	Write any recursion function.
+unsigned long long int factorial(unsigned int i) {
+ 
+                                if(i <= 1) {
+                            return 1;
+                                }
+                                return i * factorial(i - 1);
+                  }
+ 
+                  int  main() {
+                                int i = 12;
+                                  printf("Factorial of %d is %d\n", i, factorial(i));
+                                return 0;
+                  }
+ 
+ 
+5.	What happens to the following code while executing
+int sum(int n){
+sum(n-1);
+}
+It will be resulting in a stack overflow because above recursive function doesn't have termination condition
+ 
+6.	How much will be increased by incrementing integer pointer and function pointer.
+Depnding on the Architecture you are working on. If you working on 32 bit architecture, incrementing interger pointer will increment the pointer variable by 4 bytes. If you working on 64 bit architecture, incrementing interger pointer will increment the point variable by 8 bytes.
+Incremented value of function pointer depending on what type of function pointer we are
+incrementing 
+ 
+7.	Write function prototype for a function pointer which will return int, and takes char pointer and int pointer as input.
+int (* func_pointer)(char * , int *)
+ 
+8.	What happens to the following code while executing
+struct {
+int x;
+char c;
+float f;
+}ST;
+main(){
+ST *tmp = NULL;
+tmp->x; // will result in a NULL pointer dereferencing
+&(tmp->c);
+}
+9.	What all are stored in stack.
+Stack, where automatic variables are stored, along with information that is saved each time a function is called. Each time a function is called, the address of where to return to and certain information about the caller’s environment, such as some of the machine registers, are saved on the stack. The newly called function then allocates room on the stack for its automatic and temporary variables. This is how recursive functions in C can work. Each time a recursive function calls itself, a new stack frame is used, so one set of variables doesn’t interfere with the variables from another instance of the function
+ 
+10.	Storage classes.Who intializes the static variables with intial value 0.
+Storage class specifiers in C 
+auto
+11.	register
+12.	extern
+13.	static
+14.	typedef
+ 
+It will be intialized to zero. The initialization is performed only once at the time of memory allocation by the compiler
+ 
+15.	UserSpace memory mapping. 
+16.	Synchronization primitives
+I have already included the answer for this question in my previous doc shared
+ 
+17.	How to distinguish whether to use semaphore or mutex for a given use case.
+Use a semaphore when you (thread) want to sleep till some other thread tells you to wake up. Semaphore 'down' happens in one thread (producer) and semaphore 'up' (for same semaphore) happens in another thread (consumer) e.g.: In producer-consumer problem, producer wants to sleep till at least one buffer slot is empty - only the consumer thread can tell when a buffer slot is empty.
+ 
+Use a mutex when you (thread) want to execute code that should not be executed by any other thread at the same time. Mutex 'down' happens in one thread and mutex 'up' must happen in the same thread later on
+ 
+#include <stdio.h>
+ 
+int factorial(int);
+ 
+int main()
+{
+int num;
+int result;
+ 
+printf("Enter a number to find it's Factorial: ");
+scanf("%d", &num);
+if (num < 0)
+{
+printf("Factorial of negative number not possible\n");
+}
+else
+{
+result = factorial(num);
+printf("The Factorial of %d is %d.\n", num, result);
+}
+return 0;
+}
+int factorial(int num)
+{
+if (num == 0 || num == 1)
+{
+return 1;
+}
+else
+{
+return(num * factorial(num - 1));
+}
+}
+ 
+ 
+1.	how much size will allocate in stack if above factorial function called first time. 
+ 
+2.	In above factorial function if i remove if else conditions what will happen.
+ 
+3.	In interrupt handler if we increase the code size what will happen.
+ 
+4.	in a process suppose three threads are running, if one thread is crashed the remaing two threads won't have any dependency on crashed thread then what will happen.
+ 
+5.	Synchronization mechanisum questions on mutex,semaphore.
+ 
+6.	int *(*fp) (char *,int); if i increase this function pointer how much size it will increase.
+ 
+7.	if we increase the char pointer and int pointer then how much size will increased.
+ 
+8.	how do you debugg if any crash happens in user space or kernel space.
+ 
+9.	how many cpu registers are their in your project board architecture.
+ 
+18.	Given an 32 bit integer write a code to set the 21st bit of an integer using pointer given an void pointer as a function argument to set the 21st bit.
+ 
+19.	1. Regarding ptrs, 
+20.	if int *ptr is provided, find the 5th byte using it.
+21.	int ptr is provided, set 4th byte's 5th bit. 
+22.	2. bootsequence
+23.	3. Regarding dynamic library linking.  
+
+ 
+ 
+ 
+ 
+1. Write a funcion in c that takes 2 args, 1 int * ptr and 1 offset n and sets nth byte in ptr, will this code work on both little and big endian machines
+2. Write a funcion in c that takes 3 args, 1 int * ptr and 1 offset n and 1 bit num m and sets mth bit in nth byte in ptr
+3. how to use memcpy to copy 1 array to other in such a way that target array has reversed data as compared to source array
+4. Write a program to reverse an arry elements
+5. What is DMA and what all to take care to avoid problems of having old data in cache and memory
+6. how to achieve synchronisation between 2 processes
+7. how to achieve synchronisation between 1 process and ISR
+8. How to access same kernel memory from 2 user space process
+9. How to write SPI driver in user space
+10. how to communicate between user and kernel space
+11. previous projects
+12. how to map physical address to virtual address in Linux and vice versa
+13. where are formal argumens of a function stored
+14. can we store some variable in registers
+15. if we do malloc, where is this data stored
+16. Linux device driver overview
+ 
+ 
+1. what is system call number and its significance?
+2. who loads dynamic library?
+3. write a c function to generate 10 mSec delay without using any C-libs,
+if CPU clock is 1GHz, no cache, or instruction pipe line.
+and 1 clock cycle is required to execute 1 instruction.
+4. How many lines will be there in I2C? How a particular device is identified while multiple slave devices are connected. 
+5. "echo "Hello world" > out.txt" how internally this command is executed. particularity interested redirection to file part.
+6. disadvantages of using too many "volatile" variables in code?  
+ 
+Different between process and thread.
+
+why do we use threads.
+
+advantages and disadvantages of using threads over a process.
+
+What is critical section
+
+Explain what will happen if a scheduler preempted the multi-threaded program.
+
+Why do we set thread attributes instead of default attributes at the time of creating thread.
+
+In what situations we get deadlock.
+
+Is it possible to face deadlock with one process.
+
+_____________________________________________________________________________________________________
+WHAT IS FORK AND VFORK :-
+
+FORK : The fork call basically makes a duplicate of the current process, identical in almost every way (not everything is copied over, for example, resource limits in some implementations but the idea is to create as close a copy as possible).
+
+The new process (child) gets a different process ID (PID) and has the the PID of the old process (parent) as its parent PID (PPID). Because the two processes are now running exactly the same code, they can tell which is which by the return code of fork - the child gets 0, the parent gets the PID of the child. This is all, of course, assuming the fork call works - if not, no child is created and the parent gets an error code.
+
+Vfork : The basic difference between vfork and fork is that when a new process is created with vfork(), the parent process is temporarily suspended, and the child process might borrow the parent's address space. This strange state of affairs continues until the child process either exits, or calls execve(), at which point the parent process continues.
+
+This means that the child process of a vfork() must be careful to avoid unexpectedly modifying variables of the parent process. In particular, the child process must not return from the function containing the vfork() call, and it must not call exit() (if it needs to exit, it should use _exit(); actually, this is also true for the child of a normal fork())
+
+Exec : The exec call is a way to basically replace the entire current process with a new program. It loads the program into the current process space and runs it from the entry point. exec() replaces the current process with a the executable pointed by the function. Control never returns to the original program unless there is an exec() error.
+_____________________________________________________________________________________________________
+
+how do you decide how many threads you have to create for one program.
+How will you fix if you encountered a synchronization problem in a multi-threaded program.
+Is it really benefit that if we use multiple threads rather than a single thread.
+when the context switching happens.
+difference between a mutex and a semaphore
+In single process multiple threads are there, What it can share and not share that threads
+different types of Locking mechanism in kernel and how it works.
+Interrupts and which locking mechanism we can use and why?
+What are the rules to use spinlocks?
+ 
+1) Char array and where it is stored in memory 
+   char a[]="hello";
+   char *p = "world";
+   can *p be changed?
+   a[3]= "world"; print a; whats oputput?
+2) declare pointer to array, array of pointers
+   size of pointer p,*p in each case
+3) Declare Function Pointer taking argument int and returning int
+   declare function returning function pointer 
+4) what is volatile variable, where you have used it.
+5) write a program to detect loop in a linked list
+6) what is Little Endian/Big Eendian , program to detect if system is LE/BE
+
+   int x = 0x76543210;      (76 - most significance bit 10 - least significance bit)
+   char *c = (char*) &x;
+
+   Big endian format:
+   ------------------
+   Byte address  | 0x01 | 0x02 | 0x03 | 0x04 | 
+                 +++++++++++++++++++++++++++++
+   Byte content  | 0x76 | 0x54 | 0x32 | 0x10 |
+			 
+   Little endian format:
+   ---------------------
+   Byte address  | 0x01 | 0x02 | 0x03 | 0x04 | 
+                 +++++++++++++++++++++++++++++
+   Byte content  | 0x10 | 0x32 | 0x54 | 0x76 |
+   
+   
+   
+   #include <stdio.h>
+   int main ()
+   {
+     unsigned int x = 0x76543210;
+     char *c = (char*) &x;
+ 
+     printf ("*c is: 0x%x\n", *c);
+     if (*c == 0x10)
+     {
+       printf ("Underlying architecture is little endian. \n");
+     }
+     else
+     {
+       printf ("Underlying architecture is big endian. \n");
+     }
+     return 0;
+   }
+   
+   
+    /* 
+   Function check_for_endianness() returns 1, if architecture 
+   is little endian, 0 in case of big endian.
+   */
+ 
+   int check_for_endianness()
+   {
+     unsigned int x = 1;
+     char *c = (char*) &x;
+     return (int)*c;
+   }
+
+7) program to set all 4 power bits (4^0,4^1,4^2, i.e 1st,3rd,5th bits ...) in a integer.
+8) write a program to print all nodes between two leaf nodes in a tree (root node is not given)
+
+OS
+
+1) what is mutex, semaphore, spin lock.
+2) race condition example.
+3) write a program to print upto 100 all the even number using thread p1, odd number using thread p2.
+4) simulate deadlock situation using two locks and two threads, how to avoid deadlock in that case.
+ 
+1. How to allocate memory in User Space.
+2. malloc memory allocation is contiguous or not?
+3. How physical memory and virtual memory mapping is done?
+4. Write a c code to find factorial of number.
+5. Write a c code to do XOR operation without using XOR operator.
+6. Write a c code to reverse bit stream.
+    Input: 0100 1010
+    Expected output: 0101 0010
+ 
+ 
+ 
+ comcast - 
+ 
+ 1.  MMAP
+ 2.  logical and virtual address.
+ 3.  mutax  / semaphore. 
+ 4.  brk and srk.
+ 5.  how to allocate memory.
+ 6.  page fault and segmentation fault.
+ 7.  pageing.
+ 8.  fregmentation.
+ 9.  MTU (maxixmum transfer unit).
+ 10. fork and exapmle.
+ 
+
+ https://www.geeksforgeeks.org/print-1-2-3-infinitely-using-threads-in-c/
+ 
+ 
+ 
+ 
+ 1.	What happens when slave miss the start condition, how do you handle it?
+ 2.	In what scenarios will you choose I2C and SPI.
+ 3.	Why the Master will issue repeated start condition.
+ 4.	Write the key board driver flow for I2C protocol.
+ 5.	Can slaves communicate each other. 
+ 6.	What diff b/w SPI and I2C.
+ 7.	How do you debug the I2C signals ?
+ 8.	What is meant by Clock stretching ?
+ 9.	How the master will synchronize the clock stretching, how do you handle it?
+ 10.	I2C signal flow diagram.
+ 11.	How many slaves can be allocated?
+ 12.	Write I2C driver.
+  1.	What happens when slave miss the start condition, how do you handle it?
+  2.	In what scenarios will you choose I2C and SPI.
+  3.	Why the Master will issue repeated start condition.
+  
+1) difference between spi and i2c
+   # Write the I2C driver?  
+   # Explain I2C protocol.  *
+   # What is bus arbitration ?  *
+
+
+
+> how printf anf scanf will work. 
+> 
+
+
+constant - 
+
+if constant means , the value can't be changes by the programmer, 
+
+pointer to const data --
+	const int a = 2 , b = 6;
+	const int *p = &a; or int const *p = &a;
+	here p is declare as a pointer to const interger, we can chnages the pointer p but we can't change the varible pointed by p.
+	*p1 = 9  invalid 
+	p = &b;  valid
+	
+const pointer --> 
+	int a = 2, b = 6
+	int *const p = &a;
+	here p is declare as a const pointer. we can't chnages the pointer variable p , but we can change the variable pointed by p.
+	*p = 9 valid 
+	p = &b invalid
+	
+const pointer to const data
+    const int a =2;
+    const int const *p3 = &a 
+	
+	
+
+pointer to an array - (array pointer)
+	data type (*var name)[size of array];
+
+Array of pointers (pointer array)
+	int *var_name[array_size];
+	
+	
+	
+	
+______________________________________________________________________________________________________________________
+
+
+Blue stack question.  --
+
+Median of two sorted arrays
+find non repeated character index in given string
+MMU
+memory managment
+pagging
+swapping
+time complexity of above both program
+
+ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ L&T --
+ 
+ linux file system 
+ touch screen drive - what issue u faced 
+ current project what issue u faced 
+ jtag
+ how touch screen will work 
+ 
+ DMA vs system call 
+ message queue 
+ project 
+ touch screen 
+ typecast 
+ volatile 
+ boot process
+ jtag 
+ 
+ >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 
+ 
+TaTa elexi----
+
+which one is better array and linked list.
+which one is better malloc and calloc.
+strcmp safe or not 
+structure paddig how we can solve 
+Difference between global variable and global static varibale
+how to detect loop in linked list.
+IPC (pipe, shared , message)
+mamory layout of c program
+how select will work.
+
+
+
+_____________________________________________________________________________________________________
+
+L&T
+
+your own strcpy function.
+struct size, union size, memory padding.
+find the middle node.
+find the last nth mode.
+set the bits.
+different type of sheduling algorithm.
+priority ceiling. 
+shared memory.
+how free will work.
+find the middle node.
+find the last nth node.
+
+strcpy 
+char strpcy_my(char *str1, char *str2)
+{
+	while(*str2 != '\o')
+	{
+		*str1 = *str2;
+		str1++;
+		str2++;
+	}
+	*str1 = '\0';
+	return str1;
+}
+
+ struct name
+ {
+	int num;
+	char arr[10];
+	float flt;
+ }
+ 
+ union name
+ {
+	int num;
+	char arr[10];
+	float flt;
+ }
+ 
+ 
+ 4 + 4 + 4 + 4 + 4 
+
+ 
+ 50 node.
+ 
+ n = 3 
+ toal = 12; 
+ *tmp = head;
+ 
+ 1 - 2 - 3 - 5 - 6 - 7 - 8 - 9 - 10 - 11 - 12 
+
+ 
+  
+ S - s -> link 
+ f - f -> link 
+ 
+ struct node 
+ {
+	int data;
+	struct node *link;
+ };
+ 
+ struct node *head;
+ 
+ void n_th_node(struct node * head, int n)
+ {
+	if(head == null)
+		return;
+		
+	struct node *fast , * slow;
+	fast = head;
+	slow = head;
+	int i = 1;
+	while(i < n)   
+	{
+		fast = fast->link;
+		i++;
+	}
+	while(fast != NULL && fast->link != NULL )
+	{
+		fast = fast->link;
+		slow = slow->link;
+	}
+	
+	printf("n th node %d\n",slow->data);
+	return;
+ }
+ 
+ 
+ int num = 10;
+ 1010
+ mask = 1 << 
+ 
+ void check_set_bit(int num, int n)
+ {
+	unsigned int mask = 0x01;
+	mask =  mask << n -1;
+	if((num & mask) == 0)
+	{
+		printf("bit is  not set\n");
+	} else {
+		printf("bit is set\n");
+	}
+ }
+ 
+ 1001
+ 0100
+ 
+ 0000
+ 
+ 1 & 0 = 0
+ 1 & 1 = 1
+ 
+ 
+ p1  p2 
+ shared_memory 
+ ceiling 
+ 
+ second round -- >
+ 
+ inline function and macro.
+ can we declare mutex inside mutex.
+ count the set bit.
+ how we can define structure. different way.
+ we have two thread how we can dicide first thread only will use resource first
+ priority inversion. how to solve.
+ inside thread we are using one mutext can we use second mutext. 
+ **P , where u will use.
+ automic variable. 
+ 
+ main()
+ {
+	mutex()
+	func_pointer  --- func_poitner()
+	                  {
+							mutex
+							var
+							mutext();
+					  }
+	mutex()
+ }
+
+third round -
+
+how to set a bit
+how to clear a bit 
+how to print the last element in array
+how to alloct memory for a struct 
+check weather a string is sub string of a given string 
+how you synchronize multi-threaded
+when we do use shemaphores when we use mutex
+replace a char in string and count also 
+i want to allocate memory for an integer in one function, put some value to that and print that value in main function.
+ISR
+Memory management.
+____________________________________________________________________________________________________
+ 
+https://wiki.analog.com/resources/tools-software/linux-drivers/input-touchscreen/ad7877#driver_compiled_into_the_kernel
+
+Tata elix ------------->
+
+sprint and printf
+static fun() - how we can use another file.
+static int fac() - file1.c
+file2.c
+
+int (*fp)(void);
+fp = fac;
+extern fp;
+
+char *s = "hello";
+char str[] = "hi";
+
+str++; - we can't do
+s++; - we can do
+
+call back function.
+disadvantage of struct valible if we passed in function agrument.
+enum varible - how memory now its enum.
+
+madam
+
+void plaindrom_str(char * str)
+{
+	int i =0, j =0;
+	for(i=0,j=strlen(str)-1; i<=j; i++, j--)
+	{
+		if(str[i] ! = str[j]);
+			break;
+	}
+	if(i > j)
+		printf("plaindrom");
+	else
+		printf("not plaindrom \n");
+}
+
+M A D A M 
+g a u r a v
+
+comipler and cross compiler.
+OOM.
+probe() function.
+IOCT .
+mutex and spinlock.
+why we need device tree.
+ISR().
+linux device. find file somw file. 
+makefile.
+socket.
+segmentation fault (how to debug segmentation fault).
+call back function.
+disadvantage of struct valible if we passed in function agrument.
+enum varible - how memory now its enum.
+sprint and printf. and snprintf
+static fun() - how we can use another file.
+write a palindrome function.
+diffrence between char *s = "hello" and char str[] = "gaurav";
+
+
+second round - 
+
+stack overflow. 
+void fun()
+{
+	int i = 1;
+	fun();
+}
+board bringup.
+linked list - create linked list. it will point some other addess and comapare. memory size of the address
+
+>>Platform manager --> This is specific to board(different switches have different way of functioning for ex: nyq is handled by CMAN, edison is handled by platform_mgr)
+                       Here the way of handling hardware modules will be defined.
+					   Our platform manager code will handle, reading the i2c, pmbus, particular sensors(tempeature, voltage, current, fan, mode button, etc..,). So platform_mgr is one process in CPU which having all the data structues to maintain desired hardware modules values. this is dedicated to perform this kind of operations. Then IOS is separate process in the CPU. This IOS will get the info from different prcess like platfom_mgr, fowarding manager(fed), Hman, stack-manager and process those requests.
+					   
+					   MCU is micro controller, we are using to handle POE controllers, FEP, stack-power through UART.
+					   
+					   In IOS level, all the CLI's and operations we use is common to many platforms like switches, routers and hubs.
+					   
+					   in between platform mgr <--> IOS we use TDL(nothing but socket and shared memory technique).
+					   
+					   
+					   
+Madhu - 
+
+1) Explain about stack & Heap, how it works.
+2) write a function pointer use of function pointer?
+3) how to access a static function without removing static
+4) compilation steps & what internally happens
+5) write a C program to find out processor memory
+6) C program to endianness of system
+7) user space vs kernel space
+8) How kernel will serve Userspace requests?
+9) OS boot sequence. And the cisco switch boot process.
+10) Mutex vs semaphore
+11) Deadlocks & how can we avoid deadlocks
+12) How to find memleaks & how to handle segfaults in program
+
+
+
+
+____________________________________________________________________________________________________________________________
+
+VVDN - 
+
+project.
+boot project
+system call
+mutex and semaphoren.
+how we can increase thread priority.
+yocto.
+LLDP protocol.
+
+____________________________________________________________________________________________________
+
+
+globat H
+
+project.
+what i am doing here.
+C  stack, data , heap,
+malloc and calloc.
+virtual file system.
+mutext and semaphore.
+system call.
+structure paddding and packed structure
+aribration I2C.
+array and linked list. 
+shedhular.
+priority inverstion.
+circular linked list. (empaty link and full ring)
+stack (linked list).
+virtual and physical memory.
+function pointer , what is the use of function pointer.
+
+____________________________________________________________________________________________________
+
+1.how first time ping works?
+2.mutex ki semaphores ki difference
+3.Linux system calls internal functionality?
+4.comcast is more about linux
+5.IPC and linux commands
+6.shell scripting expect cheyochu
+
+VP round
+1.C, Networking, Linux, Embedded basics
+2.meru btech ECE background ayite Embedded aduguthundi
+3.manaki teliste chepochu ledante ledhani chepochu, just confidence check
+chestundi
+4.process states, compilation process.
+5.generic questions kuda adugutharu
+nakaite neku edho power vachesi HCL gurinchi edina jaragalante em Jaragalanukuntav ani adigaru
+
+Company:comcast
+
+1st round:
+1.priority inversion.
+2.priority inheritance.
+3.priority ceiling.
+4.interrupt latency
+5.process vs threads
+6.why thread is lightweight ?
+7.explain IPC mechanisum?
+8.array of pointers?
+9.declare 2D array?
+10.declare function pointers?
+11.int a = 10;
+Int *p = &a;
+++*p = ?
+12.why padding? How you will eliminate?
+13.set a bit?
+14.pointer to an array vs array of pointers.
+
+
+Networking:
+1.how ping works ?
+2.what happen when you enter url in your browser?
+3.how ping utility escapes all L7,6,5,4 headers?
+4.arp and proxy arp?
+5.what is LSRR?
+
+
+Manager round:
+1.process vs threads.
+2.how “cat file.txt” works?
+3.write multithreaded program to print 1 2 3 4 5 6 …
+Eventhread should print even numbers and odd thread should print odd numbers
+NOTE: using conditional variable?
+4.difference between mutes vs semaphore?
+5.which sockets are you using in your project?
+6.how fork works?
+
+
+VP round:
+1.What is your strength.
+2.What is your weakness.
+3.When you will happy.
+4.When you will sad.
+5.Tell about your family.
+6.How you will choose ipc mechanism.
+7.How cat command works internally.
+8.Explain how you will fix CFD.
+9.Do you have any offer.
+10.How much you are expecting CTC ?
+11.Comcast standard.
+12.What ipc will use in your project.
+
+
+
+company:Comcast
+
+
+1)program to find the system is little endian or big endian
+
+2)unsigned long size in 32 bit -- what s the logic to store 64 bit data in
+long ... take userdefined data type
+char a = 250
+char b = 255
+3)program to swap num without using third var
+   x = x ^ y;
+   y = x ^ y;
+   x = x ^ y;
+
+4)thread program using mutexes and conditional var
+5)define a single macro that clear the bit at given position
+
+	#define SetBit(number,bit) (number|=(1<<bit-1))		 
+	#define ClearBit(number,bit) (number&=(~(1<<bit-1)))
+	#define Toggle(number,bit) (number^=1<<bit-1))
+
+6)set bit at given position
+	(number|=(1<<bit-1))	
+	
+7)reverse of linked list and explanation on it
+8)diff b/w mutexes and threads
+9)how we can find memory in linux
+10)at are the types of shell in linux --- (bash,csh..etc)
+11)define a fun to swap numbers and call that fun from main values before swap
+and after swap in main fun
+
+
+____________________________________________________________________________________________________
+
+
+oracal   19 / 02 / 2021
+
+ Given an array of integers, shift all the zeros within the array to the end of the arraay.
+
+Input : [3, 0, 0, 4, 0, 8, 0, 6]
+Output : [3, 4, 8, 6, 0, 0, 0, 0]
+
+
+void pushZerosToEnd(int arr[], int n) 
+{ 
+    int count = 0; 
+	
+    for (int i = 0; i < n; i++) 
+        if (arr[i] != 0) 
+            arr[count++] = arr[i];  
+
+    while (count < n) 
+        arr[count++] = 0; 
+} 
+
+
+Given an array of integers nums sorted in ascending order, find the starting and ending position of a given target value.
+                                                                                
+Your algorithm's runtime complexity must be in the order of O(log n).           
+                                                                                
+If the target is not found in the array, return [-1, -1].                       
+                                                                                
+Example 1:                                                                      
+                                                                                
+Input: nums = [5,7,7,8,8,10], target = 8                                        
+Output: [3,4]                                                                   
+Example 2:                                                                      
+                                                                                
+Input: nums = [5,7,7,8,8,10], target = 6    
+Output: [-1,-1] 
+
+int nums[] = {5, 7, 7, 8, 8 , 10};
+int target = 8;
+int res[2];
+
+int *find_index(int nums[] int target)
+{
+	int i =0;
+	int flag1=0, flag2 = 0;
+	int len = sizeof(nums)/sizeof(nums[0]);
+	for(i=0; i<len; i++)
+	{
+		if(target == arr[i])
+		{
+				if(flag1 == 0)
+				{
+				     flag1 = 1;
+					 res[0] = i;
+					 
+				}
+				res[1]=i;
+		}
+	}
+	if(flag1 == 0)
+	{
+		res[0] = -1;
+		res[1] = -1;
+	}
+	return res;
+}
+
+Implement locking in a binary tree. A binary tree node can be locked only if all of its descendants or ancestors are not locked.
+Design the the following methods: is_locked, which returns whether the node is locked
+lock, which attempts to lock the node. If it cannot be locked, then it should return false. Otherwise, it should lock it and return true.
+unlock, which unlocks the node. If it cannot be unlocked, then it should return false. Otherwise, it should unlock it and return true.
+You may augment the node to add parent pointers or any other property you would like. You may assume the class is used in a single-threaded program, so there is no need for actual locks or mutexes. Each method should run in O(h), where h is the height.
+
+1010101010 = 0101010101;  
+_____________________________________________________________________________________________________________________
+
+#include<stdio.h>
+#include<pthread.h>
+
+pthread_t tid[2];
+unsigned int shared_data = 0;
+pthread_mutex_t mutex;
+unsigned int rc;
+//prototypes for callback functions
+
+void* PrintEvenNos(void*);
+void* PrintOddNos(void*);
+
+void main(void)
+{
+    pthread_create(&tid[0],0,&PrintEvenNos,0);
+    pthread_create(&tid[1],0,&PrintOddNos,0);
+    sleep(3);
+
+    pthread_join(tid[0],NULL);
+    pthread_join(tid[1],NULL);
+}
+
+void* PrintEvenNos(void *ptr)
+{
+     rc = pthread_mutex_lock(&mutex);
+     do
+     {
+         if(shared_data%2 == 0)
+         {
+             printf("Even:%d\n",shared_data);
+             shared_data++;
+         }
+         else
+         {
+             rc=pthread_mutex_unlock(&mutex);//if number is odd, do not print, release mutex
+         }
+     } while (shared_data <= 100);
+}
+
+void* PrintOddNos(void* ptr1)
+{
+    rc = pthread_mutex_lock(&mutex);
+    do
+    {
+        if(shared_data%2 != 0)
+        {
+            printf("odd:%d\n",shared_data);
+            shared_data++;
+        }
+        else
+        {
+            rc = pthread_mutex_unlock(&mutex);//if number is even, do not print, release mutex
+        }
+    } while (shared_data <= 100);
+}
+
+____________________________________________________________________________________________________
+
+
+
+Robert B.
+
+
+1)for that structure create 10 object
+2)In first 2 structure initialize the value. char pointer string length should be the size of the integer
+
+struct message
+
+{
+     char *data;
+     int len;
+
+};
+
+struct message **dp;
+dp = malloc(sizeof(struct message *) * 10);
+for(i=0;i<10;i++){
+  dp[i] = malloc(sizeof(struct message));  
+}
+
+
+dp[0]->len = 10;
+dp[0]->data = malloc(dp[0]->len);
+strncpy(dp[0]->data, "string1",7);
+
+dp[1]->len = 10;
+dp[1]->data = malloc(dp[1]->len);
+strncpy(dp[1]->data, "string2",7);
+
+
+void strrev(char *src, char *dest)
+{
+
+int i,j;
+for(i=0;src[i];i++);
+
+for(j=0; i!=0 ;j++,i--)
+   dest[j] = src[i-1];
+
+dest[j] ='\0';
+
+}
+
+
+      1   ->1              1 
+     12  1 ->2              2
+    123  21 -> 3            3
+   1234  321 -> 4
+
+main() {
+
+int i,j;
+
+for(i=1;i<=n;i++){ 
+  
+  for(j=n;j>i;j--){
+    printf(" ");
+}
+for(j=1;j<i;j++)           
+     printf("%d",j);   
+
+for(;j>0;j--)
+   printf("%d",j);   
+ 
+printf("\n");
+} 
+
+
+
+
+5-1 =4
+6-3 =3
+7-5 =2
+
+ s s 1
+ s 1 2 3
+ 
+ ____________________________________________________________________________________________________
+ 
+
+1. Insert and delete in linked list.
+2. Find the middle node in single linked list.
+3. You have current node address  delete that node. (do not have start address)
+4. Find the last N node.
+5. Find the loop and delete the loop in single linked list.
+6. swap the node without swaping the data in single linked list.
+7. merage to sorted linked list
+8. Swap node pair wise in single linked list.
+9. reverse double linked list
+10. reverse single linked list.
+11. Print linked list in reverse order.
+12. Implement queue using linked list
+13. Implement stack using linked list.
+14. segrigate the possitive and nigative element in array. 
+
+
+
+
+____________________________________________________________________________________________________
+
+Juniper - 
+
+First round -  (40 min)
+
+1. explain your project,
+2. what problem u faced in your currect project.
+3. Most of the question related to project, as they have idea about POE and switch. 
+4. GPIO driver.
+5. in 32 bit - need to set 10 to 15 bit.
+
+second round -  ()30 min)
+
+1. Explain currect project, problem, how u fixed.
+2. git too many question related git.
+3. swap the byte.
+4. they want more about phy side. if PD is not connected what u will do how u will debug. What happen when link will not come up. 
+
+thired round - (50 min)
+
+c and OS only.
+
+
+process and thread. - what is the use, where u wil use. 
+Process syncronization tecnique. 
+semoaphore and mutext - what is advantage and dis advantage
+in which condition u will use mutext and sempaphore.
+GPIO.
+Process state.
+how thread is diffrent.
+fork
+text , stack , heap, data segment.
+In which case segmentation will come. how OS no about this. 
+
+
+fourth round. (1.30 min)
+
+Project,
+most of the question project related only. 
+PHY side more question (i think they are working on phy side thats why)
+Reverse the bit.
+swap the byte.
+constant pointer.
+++*ptr and *++ptr;
+function pointer.
+what is GPIO. GPIO driver.
+write a program. you need to get 24 pin in GPIO.
+write a macro for set the bit and clear the.
+how to acess h/w address.
+kernel spave and user space.
+kernel thread and user thread. 
+system call.
+race condition.
+if any pointer not allocation and address like int *ptr;.  how u will assign a valid memory.
+too many question pointer related.
+pointer to an int.
+pointer array, array pointer.
+memory mapped.
+
+
+
+Juniper - 5 round - (more then 4 hours)
+
+Dequeue.
+queue / circular queue.
+linked list.
+stack.
+reverse linked list. (program)
+find loop in linked list and delete (program)
+bitwise question like - set bit. clear bit. found no of set bit. power of 2 or not. bit sawp. etc.
+*ptr++, ++*ptr, *++ptr. 
+volatile. where u will use. 
+MMU, paging.
+sorting. searching. merge short , quick short(progaram)
+write your own sizeof for all data type.
+    #define my_sizeof(type) (char *)(&type+1)-(char*)(&type)
+    
+project, any one issue.
+segmentation falut.
+signal.
+page fault.
+data segment, stack segment.
+memory leak issue.
+crased, how you will solve that one.
+string , reverse - pallindrom. remove word in string (program)
+pointer - pointer array and array pointer, (program)
+interrupt.
+interrupt context.
+pack data header. (what information inside that)
+AVL tree.
+reverse linkedlist without head.
+GDB.
+what is the code commit process.
+how to utilise the code.
+which one is good for loop or while.
+IPC , which one is good message queue and shared memory. 
+volatile, exp (in your code where u are using).
+big indian and little indian
+
+
+Juniper round 6 - 
+
+1. divied the big string in sub string and print it.
+for example - my name is gaurav.
+output - my 
+         name 
+		 is 
+		 gaurav
+		 
+2. create a loop buffer. 
+   insert and remove data on that buffer.
+
+3. stack and queue.
+4. ethernet frame.
+5. about the project.
+
+
+Juniper round 7 - (manager round)
+
+1. Some question about my perosnal life. like where are u from. qualification, first job . 
+2. All project in very deatail.
+3. virtual memory
+4. MMU
+5. Pagging
+6. function pointer.
+7. about cisco.
+8. About juniper
+9. Ask me if you have question (i asked about work and which i will select)
+
+
+reg - 32
+
+11000110
+
+11 -8 = 3
+unsigned int set_bit(int var, int L, int M)
+{
+	int mask = 1 << L;
+	n = m - l;
+	while(n) {
+		mask  | = mask << 1;
+		n--;
+	}
+	var = var | mask;
+	return var; 	
+}
+
+dec 6 ser 6 
+first 6 dec , 
+next  6 source
+fun(char *ptr, int dis, int sur)
+{   int a = sur, b = dec;
+	while(*ptr != '\0' && sur ! = 0)
+	{
+	   	ptr++;
+		sur--;
+	}	
+}
+
+
+float fun(char c int b);
+int main()
+{
+	float (*fp)(char , int);
+	fp = fun;
+	float e;
+	e = (*fp)('c', fp);
+	printf("%f",e);
+	return 0;
+}
+
+flot fun(char c , int b);
+{
+	flot d = c + b;
+	return d;
+}
+
+int a = 0xff00  - 00ff;
+
+
+unsigned int swap_byte(unsgned int a)
+{
+	a = ((a & 0xff00) >> 8)) | ((a & 0x00ff) << 8));
+}
+
+#define GPIO_SET_PIN(X , N)  ( X | (1<<N))
+#define GPIO_CLEAR_PIN(X , N)  (X & (~(1<< N)))
+
+void fun (int n) 
+{  
+int mask = 0x01;
+for(i=0;i<31;i++) 
+{
+	bit = n & (1 << i);
+	if(bit) 
+	{
+		bit is set;
+	} else 
+	    bit is not set;
+	}
+}
+return;
+}
+
+____________________________________________________________________________________________________
+
+
+AMI - 
+
+1. about your self
+2. boot process. ARM boot process.
+3. constant variable. how we can change. some more question related this.
+3. jombi and orphan process. what effect it will do.
+4. process state.
+5. thread and process difference.
+5. static and dynamic libaray. how to use, CLI.
+6. how driver will work.
+7. how GPIO we can use.
+8. how Uboot and driver will communicate.
+9. driver moduler programing.
+10. how you can configure kenel.   * under - /usr/src/linux  (make config or make menuconfig) 
+11. kernel
+12. Make file    
+
+____________________________________________________________________________________________________
+
+HPE
+---
+1)STP
+2)Trinary search
+3)Circular linked list middle node delete
+4)Reverse linked list
+5)OS memory management
+6)Tree node Deletion
+7)Stack implementation using linked list or array
+8)How to find start of each memory segment
+9)Semaphore and Mutex difference
+10)Deadlock
+11)Swap two nodes of Linked list not data.
+12)Malloc for 2 dimensional array.
+13)Null pointer crash
+14)#include <stdio.h>
+
+// A structure without forced alignment
+struct test1
+{
+unsigned int x: 5;
+unsigned int y: 8;
+};
+// A structure with forced alignment
+
+struct test2
+{
+unsigned int x: 5;
+unsigned int: 0;
+unsigned int y: 8;
+};
+
+int main()
+{
+printf("Size of test1 is %d bytes\n", sizeof(struct test1));
+printf("Size of test2 is %d bytes\n", sizeof(struct test2));
+return 0;
+}
+un on IDE
+Output:
+Size of test1 is 4 bytes
+Size of test2 is 8 bytes
+
+15)#include "stdio.h"
+int main()
+
+{
+struct {int i; char c;} myVar = {.c ='A',.i = 100};
+printf("%d %c",myVar.i, myVar.c);
+return 0;
+}
+Ans: 100,A
+
+16)#include <stdio.h>
+#include <sys/types.h>
+
+int main()
+{
+fork();
+fork();
+fork();
+printf("hello\n");
+return 0;
+}
+17)Your own sizeof operator
+18)Reverse linked list using recursion
+19)How to check Big endian , little endian
+20)Binary tree, avl tre
+21)Binary tree vs linked list
+22)Extern
+23)Why global variable has default value but not local variable
+24)Given linked list , create two linked list one having even place element and other having odd place elements
+25)Dynamic linking, static linking
+26)Multiply two number using bitwise operator
+27)Compilation steps.
+28)Mutex semaphore
+
+
+____________________________________________________________________________________________________
+
+git add is a command used to add a file that is in the working directory to the staging area.
+git commit is a command used to add all files that are staged to the local repository.
+git push is a command used to add all committed files in the local repository to the remote repository. So in the remote repository, all files and changes will be visible to anyone with access to the remote repository.
+git fetch is a command used to get files from the remote repository to the local repository but not into the working directory.
+git merge is a command used to get the files from the local repository into the working directory.
+git pull is command used to get files from the remote repository directly into the working directory. It is equivalent to a git fetch and a git merge .
+
+____________________________________________________________________________________________________
+
+
+
+Motocarlo. -
+
+1. kernel porting.
+2. Booting process.
+3. Vmalloc and kmalloc.
+4. Interrrupt.
+5. softirq and tasklet.
+6. how to boot new SOC.
+7. top half and bottam half.
+8. bootloader.
+9. Linux device driver.
+
+
+innomind  -- (hydrabad)
+
+1. little indian and big indian, what is significance.
+2. How to check, system is little indian or big indian.
+3. char *str and char arr[]; diffrence , where is will store in memory.
+4. thread what it will share and not share.
+5. atoi converstion.
+6. how to disiable driver and enable driver.
+7. remove duplicate in unsorted linked list.
+8. bitwise question.				
+9. tasklet and workqeue.
+10. spinlock and what syncronization we can use in interrupt and why.
+11. how to debug crased kernel.
+12. did you write any driver. 
+13. what is device tree. what is banefit.
+14. boot sequence. 
+15. how touch screen code flow.
+16. page fault.
+
+altron - 
+
+1. how to debug crased kernel.
+2. boot sequence.
+3. remove duplicate data in array.
+4. interrupt.
+5. I2C and SPI.
+6. thread and process. what need to check if we need to add new thread in our application. 
+7. how MCU will work internally.
+8. what is SOC. what is inside in SOC.
+9. device tree.
+
+_______________________________________________________________________________________________________________
+
+#include <stdio.h> 
+#include <string.h>
+int check_number(char ch)
+{
+      return((ch - '0') & 1);
+}
+
+void StringChallenge(char *str) 
+{
+  char temp[100]={0};
+  int i = 0;
+  int j = 0;
+  while(str[i]!='\0')
+  {
+    // odd number 
+    if((check_number(str[i]) == 1) && (check_number(str[i+1]) == 1))
+    {
+      temp[j++] = str[i];
+      temp[j++] = '-';
+      i++;
+    }
+	// even number 
+    else if((check_number(str[i]) == 0) && (check_number(str[i+1]) == 0))
+    {
+      temp[j++] = str[i];
+      temp[j++] = '*';
+      i++;
+    }
+    else
+    {
+      temp[j++] = str[i];
+      i++;
+    }
+  }
+  temp[j]='\0';
+  printf("print new sring \n");
+  printf("%s",temp);
+}
+
+int main(void) { 
+   char str[]="4546793";
+  //keep this function call here
+  //StringChallenge(coderbyteInternalStdinFunction(str));
+  StringChallenge(str);
+  return 0;
+}
+
+
+____________________________________________________________________________________________________
+
+http://interview-questions.motionzen.com/c-programming/c-data-types-tricky-interview-questions-4
+____________________________________________________________________________________________________
+
+// str1 = ketan;
+// str2 = pandey;
+// ketanpdy;
+
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    char str1[100] = "ketan";
+    char str2[] = "pandey";
+
+    int l1 = strlen(str1);
+    int l2 = strlen(str2);
+    int flag = 0;
+    int i =0;
+    int j =0;
+    int str_l1 =l1;
+    while(str2[j] != '\0')
+    {
+        flag = 0;
+        i=0;
+        while(str1[i] != '\0')
+        {
+            
+            if(str1[i] == str2[j])
+            {
+                flag = 1;
+                break;
+            }
+            i++;
+         }
+         if(flag == 0)
+         {
+           str1[str_l1] = str2[j];
+           str_l1++;
+         }
+         j++;
+     }
+     printf("new string %s\n",str1);
+}
+
+___________________________________________________________________________________________________
+
+Write a function func(32bit register, value), where value will be set in 5th to 13th bit of 32 bit register.
+
+1000  0000  0000  0000
+0001  1111  1110  0000
+   
+   n = 5;
+   m = 13;
+
+unsigned int set_bit(unsigned int value, unsigned int n, unsigned int m)
+{
+	unsigned int mask = 0x01;
+	unsigned int i = n;
+	unsigned int tmp = 0;
+	while(i <= m)
+	{
+		tmp = tmp | (mask << i);
+		i++;
+	}
+	value = value | tmp;
+	return value;
+}
+
+
+You have 7ft stick, a person comes to your home everyday and asks for 1ft stick as salary. Whenever you make a cut on stick it charges you 50$. What would be
+accounting cost?
+
+ 
+
+#include <stdio.h>
+#define my_sizeof(type) (char *)(&type+1)-(char*)(&type)
+main(void) {
+   int x = 10;
+   char y = 'f';
+   double z = 254748.23;
+   printf("size of x: %d\n", my_sizeof(x));
+   printf("size of y: %d\n", my_sizeof(y));
+   printf("size of z: %d\n", my_sizeof(z));
+}
+
+
+
+
+___________________________________________________________________________________________________
+
+pure software.
+
+Boot loader . what work it will do.
+How to pass paramater in kernel , what parameter we can pass.
+how boot loader connect with kernel 
+platform driver and normal driver 
+prob function.
+what information will poass in device tree.
+how prob will invoke.
+how device register in kernel.
+
+
+________________________________________________________________________________-----
+
+
+1. Toggle alternate bits of a number.  -
+
+ip no
+10010011
+op no
+11000110 
+
+ANS - x = (x ^ 0xAAAAAAAA);
+
+2. Remove out duplicate elements of array. Print array after discarding these duplicate elements. -
+
+int arr[] = {1,2 3,1,3,3};
+int i,j,k;
+for(i = 0; i< n; i++)
+{
+	for(j =i+1; j< n; j++)
+	{
+		if(arr[i] == arr[j])
+		{
+			for(k=j; k< n -1; k++)
+			{
+				arr[k] = arr[k+1];
+			}
+		n--;
+		j--;
+		}	
+	} 
+}
+  
+3. Recursively add the characters of string "abc" and print its sum  -
+
+_____________________________________________________________________________________________________
+
+Write a function in c to allocate memory of n size and return pass or fail
+
+int *c = (int *)malloc(n*sizeof(int));
+if(c == NULL) {
+	return;
+}
+
+3 ways of finding a palindrone.
+
+
+
+Find repeated elemets in list and delete it. minmum 2 approaches
+
+1.            Factorial of a number using recursion.
+
+              int fact(int n)
+			  {
+				 if(n == 0)
+					return 1;
+				 return  n * fact(n -1);
+			  }
+
+2.            Palindrome
+
+#include<stdio.h>
+int main()
+{
+    char str[] = "madam";
+    int i ,j;
+    for(i=0,j=strlen(str)-1; i<=j;i++,j--)
+	{
+	    if(str[i]!=str[j])
+		    break;
+	}
+    if(i>j)
+	    printf("palindrom \n");
+	else
+	    printf("not plaindrom \n");
+	return 0;
+}
+
+
+C interview questions:
+
+- what is volatile ? It's use and significance in memory point of view as well as program perspective ? (More details checked in it)
+- what is function pointers and its usage? it's 'C' declaration for a function? 
+- what is extern and it's usage w.r.t functions & variables? explain it with examples?
+- precedence of operators in C for a expression ? explain it why e.g: a|=(1<<n);?
+- difference between  a|=(1<<n); and  a = a|(1<<n); in perspective of assembly instructions?
+ 
+
+C programs:
+- write a function for setting a bit in a variable using a c program?         var = (var |  (1 << mask));
+- write a function for clearing a bit in a variable using a C program?        var = (var  & (~(1 << mask)));
+- write a single function for both setting and clearing a bit in a variable using a switch statement of C program?
+- write a function to count number of bits set in a given variable using a C program?   
+  unsigned inr fun (unsigned int x)
+  {
+		int count = 0;
+		while(x!=0)
+		{
+			x = (x & x -1);
+			count++;
+		}
+		return count;
+  }
+
+- write a function to rotate the bits in a given variable using a right-shift operation of C program?
+
+Cortex-R4 interview questions:
+- what is ISR?
+- what is interrupt latency ?
+- How you measure the interrupt latency?
+- what is FIQ ?
+- what is the difference between FIQ and IRQ ?
+- what is NVIC (Nested vector interrupt controller?"
+"Coding Questions in webex programming console
+
+1.Reverse string in python – different methods 
+
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+   char str[] = "gaurav siwach";
+   int i = 0;
+   int j = strlen(str)-1;
+   char c;
+   printf("String is :%s\n",str);
+   while(i<=j)
+   {
+        c = str[i];
+        str[i] = str[j];
+        str[j] = c;
+        i++;
+        j--;
+   }
+   printf("new string is \n");
+   printf("%s",str);
+   return 0;
+}
+
+// print the reverse 
+ 
+#include<stdio.h>
+#include<string.h>
+
+void reverse_string(char *ptr);
+int main()
+{
+   char str[] = "gaurav siwach";
+   int i = 0;
+   int j = strlen(str)-1;
+   char c;
+   printf("Old string is %s\n",str);
+   reverse_string(str);
+   return 0;
+}
+
+void reverse_string(char *ptr)
+{
+    if(*ptr == '\0')
+        return ;
+    reverse_string(ptr+1);
+    putchar(*ptr);
+}
+
+
+#include<stdio.h>
+#include<string.h>
+
+void reverse_string(char *ptr);
+int main()
+{
+   char str[] = "gaurav siwach";
+   printf("Old string is %s\n",str);
+   reverse_string(str);
+   printf("new string is %s\n",str);
+   return 0;
+}
+
+void reverse_string(char *str)
+{
+    char *tmp = str;
+    char *new = str;
+    char c;
+    int i;
+    for (i = 0; i<strlen(str)-1; i++)
+         new++; 
+    printf("new %c",*new);
+    
+    for(i = 0; i<strlen(str)/2; i++)
+    {
+        c = *tmp;
+        *tmp = *new;
+        *new = c;
+        tmp++;
+        new--;
+    }
+}
+
+2. Find maximum number repeating elements which are adjacent in a string [ex: 2030012 ‘2’ is ans]
+3. Efficiently sort duplicate arrays https://www.techiedelight.com/efficiently-sort-array-duplicated-values/
+4. In the list [0,1,1,1,0,0,0,1,1,0] arrange in ascending o/p =>  0 0 0 0 0 1 1 1 1 1 [Min Complexity < O(n)]
+#include<stdio.h>
+//#include<string.h>
+int main()
+{
+    int arr[] = {0,1,1,1,0,0,0,1,1,0};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    printf("the size of array %d\n",n);
+    int i = 0;
+    int count = 0;
+    for(i =0;i < n;i++)
+    {
+        if(arr[i] == 0)
+        {
+            arr[count++] = 0;
+        }
+    }
+    printf("%d\n",count);
+    while(count < n)
+    {
+        arr[count++] = 1;
+    }
+    printf("New array is :");
+    for(i = 0; i < n; i++)
+    {
+        printf("%d ",arr[i]);
+    }
+    return 0;
+}
+
+5. Balance the opening and closing braces of a nested c code ex : { {}{} {{}} }
+
+Questions related to Microcontrollers
+
+1.   Booting process of a microcontroller
+2.   What are interrupts
+3.   Which interrupt has the highest priority (RESET)
+4.   What is DMA. Explain its working
+2.   C code to find palindrome or not without using string operations.
+5.   When an embedded code is not working as expected, how you find the point where code is wrong.
+6.   What are steps involved in debugging using emulator.
+7.   How to traverse to end node in singly linked list without using 3rd pointer. And how to reach starting node again.
+8.   Frog is jumping to reach top of well... Aptitude question."
+
+2. Bit wise operation in details
+5. Questions on Structure and union memory
+6. Unsigned short and unsigned char
+7. Storage class in c, and use of extern class
+8. Questions on Const pointer
+9. Questions on Switch case in C
+
+"Memory layout in c.
+
+difference between malloc & calloc.
+Call by value n call by reference.
+Structure size code related questions.
+Storage classes in c.
+Compilation process in c.
+Bitwise operations in c related questions.
+C program to calculate whether number is power of two or not.
+
+for(int x = 0; x < 4; x++)
+{
+    switch(x)
+    {
+        case 2: printf(“%d”, x);
+        case 0: printf(“%d”, x);
+        default: break;
+        case 3: printf(“%d”, x);
+    }
+}
+
+void main()
+{
+    int const myVar = 10;
+    int *ptr = (int*) &myVar;
+    *ptr = 100;
+    printf(“%d\n”, myVar);
+}
+
+Output will be,
+
+A.  Compilation Error
+B.  10
+C.  100
+D.  Runtime Error
+
+
+struct a {
+    int b;
+    struct a *c;
+} d, f, g[2], *h;
+
+ 
+
+#include
+Bool poweroftwo(int n)
+(
+If (n==0)
+Return false;
+Return( ceil(log2(n)) =floor (log2(n));
+)
+
+Int main()
+(
+Poweroftwo
+}
+
+ 
+
+3. what is void pointer
+4. Linux Boot process
+5. How to change const variable
+6. what is difference between array and linked list"
+
+size of given structure program,
+increment and decrement operations,
+constant pointer.
+
+2. What is critical bug you fixed and how.
+5. What is dereference between priority and severity explain with example.
+6. what is volatile.
+7. How to check aeroplane weight without weighing machine.
+8. how to cut cake into 4 pieces with 3 cuts.
+9. Arrange into order :
+    Room
+    lock
+    Siwtch ON
+    Door
+    Key
+	
+10. Man climb the well 13 feet in day time, falls 5 feet in night time
+    How many days man takes to climb the well if well depth is 100 feet.
+11. 8 6 9 23 87 what is next number.
+
+    128,
+    226,
+    324,
+    429  - Ans
+ 
+12. Fill the square(2*2) in missing square(9*9).
+13. The unit digit in 43*69*551
+    a.6   b.2   c.4  d.8  e.non of the above
+
+"Find the no. Of duplicates
+Decimal 2 binary
+#include<stdio.h>
+int main()
+{
+    int a = 12;
+    int i = 0;
+    int mask =0;
+    for(i=31; i>=0;i--)
+    {
+        mask = 1 << i;
+        putchar((a & mask)? '1' : '0');
+        if(i%8==0)
+            putchar(' ');
+    }
+    return 0;
+}
+
+Check which bit is set
+Create a 2d matrix of 2x2 with 0 filled.
+2. C program to remove duplicates in an array.
+3. C program to swap two nos without using temporary variable.
+4. convert a number to binary and find if 2nd bit is set/not.
+5. Delete duplicate elements in array.
+6. Find the 2nd largest number in array.
+7. File write and read( which is odd number, even and prime), 3 different file.
+ 
+1 Puzzle.
+One person felt down in well, in a day time he comes 10 fit above and night goes 5 fit down                  
+Raj was not asking to calculate number of days, he asked Whether he will come out or not ?"
+1- Find the duplicate numbers.
+2- Find the repeated digits in a number
+
+#include<stdio.h>
+int main()
+{
+    int num = 12343;
+    int arr[10] = {0};
+    int n = 10;
+    int i =0;
+    int tmp;
+    while(num!=0)
+    {
+        tmp = num % 10;
+        arr[tmp]++;
+        num = num / 10;
+    }
+	
+    while(i<n)
+    {
+        
+        if(arr[i] > 1)
+        {
+            printf(" new: %d",i);
+        }
+        i++;
+    }
+    return 0;
+}
+
+4- ""abc def"" convert to ""def abc""."
+
+ 
+
+1. Use of Volatile Key word
+2. Static and extern storage class explaination
+3. Dangling pointer
+4. Compilation Steps in C 
+
+1. 8 6 9 23 87 find next number in the given sequence 
+2. How can we calculate weight of aeroplane without using measuring scale
+3. To divide a single birthday cake for 8 people, how many minimum number of cuts need to be done.
+
+Birthday cake for 8 people, how many minimum number of cuts need to be done.
+
+Duplicate Array
+Pull out digits from seriex
+Matrix
+Addition
+Multiply and Division using shift operator
+2nd, 3rd, 4th largest in Arrya
+Bit operators
+Memory Map
+Double Loop
+Set Bits
+OOPs problem solving
+Pattern Matching
+number of ‘8’ present between 0 and 100  using c
+storage class
+volatile memory
+function pointer"
+"Volatile memory
+What is CRC
+How many RAM available on Controller
+Uses of RAM
+Memory allocation during RUN time
+Program for Armstrong No. in C
+Find frequent largest element in array
+Write a program without ‘*’ operator"
+String reverse – write C program
+Palindrome – write C program"
+
+1.            Dynamic memory allocation : Allocate 100 bytes initialize with Zero.
+2.            Find duplicate in array and remove it
+3.            Palindrome
+4.            What are controllers and processor
+5.            What  is the frequency used in your project
+6.            Doctor has given 2 tab each for cold and cough(total 4 tablets). It got mixed with other 4 tablets which are identical. Now patient wants to take tablet  and complete course. What is the possibility of he taking right tablet at a time."
+•             write a program to check given number is divisible by 3 and 5.
+•             Write a program to find Second largest number in an array.
+•             Write a program for String reverse and print alternate characters(don't consider spaces in string)
+•             Write a program to multiple a given number by 16 (with out using * operator) "
+
+"1.WAP to check given num is a strong number or not?
+2.WAP to check the given number is divisible by 3 or 5 or both?
+3.WAP to find the average of two numbers with all cases?
+4.Wap to reverse the words of a string?
+5.Wap to swap the given bit positions in a number?
+
+
+Strong numberis a special number whose sum of the factorial of digits is equal to the original number.
+For Example: 145 is strong number. Since, 1! + 4! + 5! = 145.
+Strong number is a special number whose sum of the factorial of digits is equal to the original number.
+For Example: 145 is strong number. Since, 1! + 4! + 5! = 145."
+
+•  Link list.
+•  Reverse link list.
+•  Write a program for reversing string using array, pointers, C program.
+•  Pattern printing – Star pattern program in C.
+•  C program to check Armstrong Number.
+•  C program for palindrome.
+•  Duplicate in the array.
+•  Program for bit rotation, set bit, clear bit
+•  What is timer, how to implement.
+•  What is Firmware"
+
+s:
+
+1. Reverse the string in the same memory?
+2. set a particular bit?
+3. what is volatile?
+4. Memory organization with which variable will be stored where?
+
+Domain-specific:
+1. Booting process.
+2. startup code
+3. JTAG related
+ 
+•           Microcontroller boot process
+•           IPC Mechanism
+•           Memory data recursion
+•           Static function and static variables.
+•           Linker error
+•           Interrupt
+•           Legacy and latency
+•           Endians.
+•           Bit manipulation"
+•           Project Details
+•           C Concepts, Compiler Stage, pointer, arrays.
+•           Difference between Arrays and pointers.
+•           When we declare a string in ROM, can we change one character.
+•           Volatile  key word -use of
+•           Can we use” const and volatile memory “ together? If yes, give example.
+•           ITC Mechanism- explain in detail
+•           Shared memory, queue, pipe, Multi-threading
+•           ISR – embedded working."
+
+I2C, SPI, Can you connect multi matser- Yes/NO - i2c - yes , spi - no
+Pointer, String stored in ROM. How do you change.
+UART-Is there any difference Boards bits per second
+C-String, character Array. Volatile keyword
+
+Function pointers
+Q. Bit field, size of structure, union?
+union Name{
+	int N1;
+	struct st{
+		int a:5;
+		int b:4;
+	};
+	char c;
+	float d;
+}
+
+Q. Value of Enums.
+enum {sun, mon, tue, wed, thu=-1, fri, sat};
+
+Q. Answer below:
+int i = 10; //address 0x1000
+int *p=&i; //addr of p 0x2000
+*i =? //       
+&p = ? //0x2000
+*p = ? //10
+p = ? //0x1000
+&i = ? //0x1000
+
+Q. OS concept, Mutex, Semaphore, IPCs, System calls.
+Q. WAP to find the looping
+eg. head->1->2->3->4->5->6->7->8->9->10->4
+have looping as NODE 10 is not pointing to NULL.
+
+1. Find the duplicate node in linked list.
+2. What is bitfield? With example.
+3. Memory allocation for different datatype members in structure.
+4. When ARP is send in ethernet communication.
+5. Mutex vs semaphore.
+6. Steps required to identify the different size marble. Total 27 marble in which 26 are equal in size but 1 is different.
+7. UDP vs TCP.
+8. Normal Port number for networking.
+9. Can we store float value in int and char datatype.
+10. Union vs Structure.
+11. What is Nacking in TCP.
+12. Declare a enums for weekdays"
+
+"C programming
+IPC
+OS Concepts
+Various register and Volatile.
+Microcontrollers
+Bit wise operations
+Lower level design architecture of Microcontrollers."
+
+•             On protocol(I2c), C and SPI, storage classes and Qualifiers,  booting process.
+•             Difference I2C and SPI.
+•             Given a number, fine whether it is power of or not.
+•             Debugging.
+•             I2c while transfer data power goes off. How do you Check data transferred between master and slave.
+•             Architecture of project. What are the issues faced
+•             Arbitration can protocol"
+
+1.When we declare a string in ROM, can we change one character.
+const char str_MyString[] = "This Is My String\r\n"; 
+
+then,
+    strcpy(data, str_MyString); 
+or
+    memcpy(data, str_MyString, sizeof(str_MyString)); 
+
+2.  Function Pointer.
+3.  Remove duplicates from String.
+4.  Constant Pointer, Pointer to a Constant and Constant Pointer to a Constant.
+5.  How interrupts are handled.
+6.  IPC mechanism.
+7.  Multithreading.
+8.  Increment Operator with Pointer.
+9.  Dynamic Memory Allocation.
+10. Volatile Keyword Usage.
+
+1.  Program to find string length and to remove selected character.
+2.  Program to find number of 1's and 0's in given number
+3.  Program to sort integer array
+4.  Program to  set and clear a bit in a given number.
+5.  explain What is the difference between little endian and big endian. Write a program to find it.
+6.  Difference between structure and Union
+7.  What is structure padding explain with one example
+8.  How decimal value 8 stores in memory in 16-bit format.
+9.  If MCU able to process only 8 bits at a time then How to take the average of two uint_8 type values.
+
+Ans:- avg = (a/2 + b/2)+((a%2 + b%2)/2);
+
+10. write a program to find whether given number is power of 2 or not
+11. difference between SPI and I2C.
+12. what is bitwise arbitration in I2C
+13. explain about SPI modes
+14. Give example for usage of Structure and Union
+15. Write a program to sort integer array and remove duplicates from array.
+16. Explanation about project and challenges faced during project development.
+17. how to find if data transmission is not happening in I2C explain about debugging steps.
+
+
+Memory Management.
+Abstract model of Virtual to Physical address mapping
+Virtual Memory.
+Page Table.
+Physical Memory.
+How are the PTE organized (Per Process).
+Demand Paging.
+Swapping.
+Shared Virtual Memory.
+Physical and Virtual Addressing Modes.
+Buffer Cache.
+Page Cache.
+Swap Cache.
+Hardware Caches.
+Page Allocation and Deallocation.
+Swapping Out System V Shared Memory Pages.
+Swapping Out and Discarding Pages.
+Processes States.
+Scheduling.
+Process selection.
+Scheduling Swap processes.
+Identifiers.
+Inter-Process Communication.
+Links.
+Times and Timers.
+File system.
+Virtual memory.
+Processor Specific Context.
+Creating a Process.
+Interprocess Communication Mechanisms.
+Signals
+Shared memory
+Pipes
+Timer
+Task Queues
+What is bottom half and what are the data structures.
+Explain Linux Device deriver architecture
+How to use interrupt in device driver.
+How to make a module as loadable module?
+Explain about the init call mechanism.
+What are the differences between vmalloc and kmalloc? Which is preferred to use in device drivers?
+what are IOCTLS
+how character driver is registered in linux.
+	int register_chrdev_region(dev_t first, unsigned int count, char *name);
+    void unregister_chrdev_region(dev_t first, unsigned int count);
+	
+what is probe function. 
+
+AMD question - 
+
+
+//rerrange negative and positive value in array ---
+//input - -1,3,45,5,-34,5,32,-2
+//output - -1,-34,-2,3,45,5,5,32
+
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+   int arr[] = {-1,3,45,5,-34,5,32,-2};
+   int n = sizeof(arr)/sizeof(arr[0]);
+   int min =0;
+   int i,j;
+   for(i=1;i<n;i++)
+   {
+       min = arr[i];
+       j = i-1;
+       if(min > 0)
+          continue;
+       while(j >= 0 && arr[j] < 0)
+       {
+           arr[j+1] = arr[j];
+           j = j-1;
+       }
+       arr[j+1] = min;
+   }
+   printf("new array \n");
+   for(i=0;i<n;i++)
+        printf("%d ",arr[i]);
+   return 0;
+}
+
+// insertion sort 
+//input -> -1,3,45,5,-34,5,32,-2
+//output ->  -34,-2,-1,3,5,32,45
+
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+   int arr[] = {-1,3,45,5,-34,5,32,-2};
+   int n = sizeof(arr)/sizeof(arr[0]);
+   int min =0;
+   int i,j;
+   for(i=1;i<n;i++)
+   {
+       min = arr[i];
+       j = i-1;
+       while(j >= 0 && arr[j] > min)
+       {
+           arr[j+1] = arr[j];
+           j = j -1;
+       }
+       arr[j+1] = min;
+   }
+   printf("new array \n");
+   for(i=0;i<n;i++)
+        printf("%d ",arr[i]);
+   return 0;
+}
+
+	for(i =1; < len; i++)
+	{
+		temp = arr[i];
+		j = i - 1;
+		while(j >= 0 &&  arr[j] > temp)
+		{
+			arr[j+1] = arr[j]; 
+			j = j - 1;
+		}
+		arr[j+1]  = temp;
+	}
+
+// first repated char in strring. 
+//intput - gaurav shiwach
+//output - a
+
+
+#include <stdio.h>
+#include <string.h>
+ 
+int findRepeatFirstN2(char* s)
+{
+    int p = -1, i, j;
+    for (i = 0; i < strlen(s); i++) {
+        for (j = i + 1; j < strlen(s); j++) {
+            if (s[i] == s[j]) {
+                p = i;
+                break;
+            }
+        }
+        if (p != -1)
+            break;
+    }
+    return p;
+}
+
+// Driver code
+int main()
+{
+    char str[] = "geeksforeeks";
+    int pos = findRepeatFirstN2(str);
+    if (pos == -1)
+        printf("Not found");
+    else
+        printf("%c", str[pos]);
+    return 0;
+}
+
+//find the repated element in string - 
+//intput - gaurav shiwach
+//output - ah
+
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    char str[] = "gaurav shiwach";
+    int count[26] = {0};
+    int len = strlen(str);
+    int i = 0;
+    for(i =0;i<len;i++)
+    {
+        count[str[i]-'a']++;
+    }
+    
+    for(i=0;i<26;i++)
+    {
+        if(count[i] > 1) {
+            printf("%c",i+'a');
+        }
+    }
+    return 0;
+}
+
+
+//remove the character occurance - 
+//input - gaurav siwach 
+//remove char  - a
+//output - gurv siwch
+
+int main()
+{
+    char str[] = "gaurav shiwach";
+    char c = 'a';
+    int i,j;
+    for(i=0,j=0;i<strlen(str);i++)
+    {
+        if(str[i] != c) {
+            //printf("%c ",str[i]);
+            str[j++] = str[i];
+        }
+    }
+    str[j] = '\0';
+    printf("%s",str);
+    return 0;
+}
+
+// found sub string in main string 
+// input - gaurav  shiwach
+// sub string - shiwach
+// output -  yes
+
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    char str1[] = "gaurav shiwach";
+    char str2[] = "gar";
+    int l1 = strlen(str1);
+    int l2 = strlen(str2);
+    int i,j;
+    int flag  = 0;
+    for(i=0;i<l1-l2;i++)
+    {
+        for(j=i;j<i+l2;j++)
+        {
+            flag = 1;
+            if(str1[j] != str2[j-i])
+            {
+                flag = 0;
+                break;
+            }
+        }
+        if(flag == 1) {
+            break;
+        }
+    }
+    if(flag == 1)
+        printf("Yes");
+    else 
+        printf("No");
+    
+    return 0;
+}
+
+
+// str1 = ketan;
+// str2 = pandey;
+// ketanpdy;
+
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    char str1[100] = "ketan";
+    char str2[] = "pandey";
+
+    int l1 = strlen(str1);
+    int l2 = strlen(str2);
+    int flag = 0;
+    int i =0;
+    int j =0;
+    int str_l1 =l1;
+    while(str2[j] != '\0')
+    {
+        flag = 0;
+        i=0;
+        while(str1[i] != '\0')
+        {
+            
+            if(str1[i] == str2[j])
+            {
+                flag = 1;
+                break;
+            }
+            i++;
+         }
+         if(flag == 0)
+         {
+           str1[str_l1] = str2[j];
+           str_l1++;
+         }
+         j++;
+     }
+     printf("new string %s\n",str1);
+}
+
+
+number is even or odd -
+
+#include<stdio.h>
+int main()
+{
+    int a = 13;
+    int mask = 01;
+    if((a & mask) == 0)
+        printf("even\n");
+    else 
+        printf("odd\n");
+    
+    return 0;
+}
+
+
+
+/******************************************************************************
+Welcome to GDB Online.
+GDB online is an online compiler and debugger tool for C, C++, Python, Java, PHP, Ruby, Perl,
+C#, VB, Swift, Pascal, Fortran, Haskell, Objective-C, Assembly, HTML, CSS, JS, SQLite, Prolog.
+Code, Compile, Run and Debug online from anywhere in world.
+*******************************************************************************/
+
+//find the 2nd highest number from the numbers continuously entered by user
+//max 10 input
+// 4 2 1 5 6 7 8 9 12 11
+#include <stdio.h>
+int main()
+{
+        int sec =0;
+        int fir =0;
+        int i;
+        int max = 10;
+        int num =0;
+        for(i=0;i<max;i++)
+        {
+            printf("Enter the number \n");
+            scanf("%d",&num);
+            if(fir < num) {
+                sec = fir;
+                fir = num;
+            }
+            else if(sec < num) {
+                sec = num;
+            }
+        }
+        printf("second number %d \n",sec);
+}
+
+//recursively add all the characters in the string and print the sum . string is "abc"
+// 97  + 98 + 99 = 294
+  
+#include <stdio.h>
+int add_char(char *);
+int main()
+{
+    char *str = "abc";
+    int add = 0;
+    add = add_char(str);
+    printf("%d",add);
+    return 0;
+}
+
+int add_char(char *ptr)
+{
+    if(*ptr == '\0')
+        return 0;
+    return (*ptr + add_char(ptr+1));
+}
+
+
+
+________________________________________________________________________________-----
+
+wipro
+
+1. Read value from an address. Check if 4th bit is set. If set, then unset the bit.
+
+unsigned int check_value(unsigned int n)
+{
+	unsigned int mask = 1;
+	if(n & (mask <<  n) != 0)
+	{
+		n = n & ~(mask << n);
+	}
+}
+
+2. Output of following:
+int a[5] = {1,2,3,4,5}; 
+int *ptr = 0; 
+printf("%d\n", ptr);           - 0                 
+printf("%d\n", *ptr);          - segmenation fault
+ptr = &a;
+printf("%d\n", *ptr);          -  value of 1st index - 1
+printf("%d\n", *ptr++);        - *(ptr++) -  value of 1st index - 1
+printf("%d\n", ptr);           addess of 2nd index
+printf("%d\n", (*ptr)++);      value of 2nd index  - 2
+printf("%d\n", ptr++);         address of 2nd index
+printf("%d\n", ptr);           address of 3rd index
+printf("%d\n", *ptr);          value of 3rd index
+
+3. Find number of set bits in given value. Unset all even-bits in that value
+    
+   unsigned int find_set_bit(unsigned int x)
+   {
+        unsigned int y = x;
+		int count =0;
+		while(y!=0)
+		{
+			y = y & (y -1);
+			count++;
+		}
+		return count;
+   }
+
+   unsigned int unset_even_bit(unsigned int x)
+   {
+		x = x & 0xAAAAAAAA;
+		return x;
+   }
+   
+    7 6 5 4 3 2 1 0 
+x = 1 1 0 1 1 0 1 0
+    1 0 1 0 1 0 1 0 
+&   1 0 0 0 1 0 1 0 
+
+
+
+4. Find Nth node from end in a given linked list.
+struct node
+{
+	int data;
+	struct node *link;
+};
+struct node *head; // head is pointing first node. 
+ 
+// 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 -9 - 10 - null
+
+void find_last_n_node(struct node *head, int n)
+{
+    int i =0;
+	struct node *ptr = head;
+	struct node *tmp = head;
+	while(i < n)
+	{
+	     ptr = ptr->link;
+		 i++;
+	}
+	while(ptr->link != null && ptr!=NULL && tmp!=NULL)
+	{
+		ptr = ptr->link;
+		tmp = tmp->link;
+	}
+    printf("the last n th node is %d",tmp->data);	
+}
+
+
+_________________________________________________________________________---
+eximius design 
+
+
+#include <stdio.h>
+int main()
+{
+  int arr[] = {1,3,4,2,6,7,8,9,10};
+  int first = 0;
+  int sec = 0;
+  int i = 0;
+  int length = sizeof(arr)/sizeof(arr[0]);
+  if(arr[0] > arr[1])
+  {
+  		first = arr[0];
+      sec = arr[1];
+  } else {
+  		first = arr[1];
+      sec = arr[0];
+  }
+  for(i=2;i<length;i++)
+  {
+  	  if(first < arr[i])
+      {
+      		sec = first;
+          first = arr[i];
+      } else if (sec < arr[i]) {
+      		sec = arr[i];
+      }
+  }
+  printf("second value %d",sec);
+  return 0;
+}
+
+
+//Set n number of bits continuously from pos 
+
+// list a and b
+// a = 1->2->3->4->5 (5)
+// b = 6->7->8->9-> (7)
+
+
+Write an efficient program to count the number of 1s in the binary representation of an integer.
+
+3 - 0011
+
+int count_bit(int x )
+{
+	int count = 0;
+  while(x!=0)
+  {
+  		x = x & (x-1);
+      count++;
+  }
+  return count;
+}
+
+struct node
+{
+	int data;
+  struct node *link;
+};
+struct node *head = NULL;
+void inser_node(struct node *head, int item)
+{
+			char y;
+      int num;
+			struct node *tmp;
+      tmp = (struct node *)malloc(sizeof(struct node));
+      if(tmp == NULL)
+      		return;
+      
+      tmp->data = item;
+      tmp->link = NULL;
+      
+      if(head == NULL) {
+      		head = tmp;
+          return;
+      }
+      int *ptr = head;
+      // adding note in between
+      // 1 - 2 - 3 -  4 -  8 -5 - 6 - 7
+      printf("do yopu want to inset in between: please type y and n \n");
+      scanf("%c",&y);
+      if(y == 'y' || y == 'Y') {
+      			printf("after which node you want to insert \n");
+            scanf("%d",&num);
+            while(ptr->data != num)
+            {
+      		      ptr = ptr->link;	
+            }
+            tmp->link = ptr->link;
+            ptr->link = tmp;  
+      } else {
+      // adding to the last node.
+    	     //int *ptr = head;
+           while(ptr!=NULL) {
+						   ptr = ptr->link;
+           }      
+           ptr->link = tmp;
+      }    
+      return;
+}
+
+
+___________________________________________________________________________________---
+
+WDC 
+
+1. unsigned int a = 0x01234567;
+   store int value in 2 short int. 
+   like short int b = 0x0123;
+			  int c = 0x4567;
+			  
+2. union u 
+{
+	int a;
+	char b;
+}
+union u.u1
+u1.a = 0xffff;
+u1.b = 'a';
+
+what the a and b value.
+
+3. #define MAX(a,b)  a>b?a:b
+
+main()
+{
+	int i =0 , j =1;
+	max(i++,j++);
+    a++>b++?a++:b++    
+}
+
+what is the a and b value 
+
+
+4. check any number is power of 2 or not.
+
+5. find the middle list in linked list.
+
+6. what is memory map. (text,data,stack,heap)
+
+7. how many 0 in 50!.
+
+8. malloc and calloc.
+
+9. structure padding.
+
+10. you have 8 ball same size same color. one ball have more weight. how you will find that ball.
+
+11. char *p = "western";
+     p[2] = 'D';
+	 
+12. SPI and I2C. how you will write code for both.
+
+13. extern and static variable, how you can pass static varible in other file. static function. 
+
+
+
+
+___________________________________________________________________________________________________
+
+local variables
+can be stored either on the stack or in a data segment depending on whether they are auto or static. (if neither auto or static is explicitly specified, auto is assumed)
+
+global variables 
+are stored in a data segment (unless the compiler can optimize them away, see const) and have visibility from the point of declaration to the end of the compilation unit.
+
+static variables 
+are stored in a data segment (again, unless the compiler can optimize them away) and have visibility from the point of declaration to the end of the enclosing scope. Global variables which are not static are also visible in other compilation units (see extern).
+
+auto variables 
+are always local and are stored on the stack.
+
+the register 
+modifier tells the compiler to do its best to keep the variable in a register if at all possible. Otherwise it is stored on the stack.
+
+extern variables 
+are stored in the data segment. The extern modifier tells the compiler that a different compilation unit is actually declaring the variable, so don't create another instance of it or there will be a name collision at link time.
+
+const variables 
+can be stored either on the stack or a readonly data segment depending on whether they are auto or static. However, if the compiler can determine that they cannot be referenced from a different compilation unit, or that your code is not using the address of the const variable, it is free to optimize it away (each reference can be replaced by the constant value). In that case it's not stored anywhere.
+
+the volatile 
+modifier tells the compiler that the value of a variable may change at anytime from external influences (usually hardware) so it should not try to optimize away any reloads from memory into a register when that variable is referenced. This implies static storage.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
